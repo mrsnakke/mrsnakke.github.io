@@ -10,10 +10,11 @@
     <style>
         :root {
             --neon-blue: #00f2ff;
-            --tech-bg: rgba(10, 10, 15, 0.95);
-            --card-bg: rgba(20, 20, 30, 0.8);
-            --accent-glow: rgba(0, 242, 255, 0.3);
+            --tech-bg: rgba(10, 10, 15, 0.85);
+            --card-bg: rgba(15, 15, 25, 0.9);
+            --accent-glow: rgba(0, 242, 255, 0.4);
             --text-main: #e0e0e0;
+            --danger: #ff4d4d;
         }
 
         * {
@@ -23,7 +24,8 @@
         body {
             margin: 0;
             padding: 20px;
-            background: radial-gradient(circle at top, #1a1a2e 0%, #0f0f1a 100%);
+            background: url('img/background.webp') no-repeat center center fixed;
+            background-size: cover;
             font-family: 'Inter', sans-serif;
             color: var(--text-main);
             display: flex;
@@ -31,6 +33,18 @@
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
+        }
+
+        /* Overlay para mejorar legibilidad sobre el fondo */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
         }
 
         /* TIMER STYLES */
@@ -42,7 +56,7 @@
             border-radius: 60px;
             border: 2px solid var(--neon-blue);
             box-shadow: 0 0 30px var(--accent-glow);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             margin-bottom: 40px;
             width: fit-content;
             animation: pulse 4s infinite ease-in-out;
@@ -53,7 +67,7 @@
 
         @keyframes pulse {
             0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
-            50% { box-shadow: 0 0 40px rgba(0, 242, 255, 0.6); }
+            50% { box-shadow: 0 0 40px rgba(0, 242, 255, 0.7); }
         }
 
         .image-container {
@@ -93,7 +107,7 @@
             font-family: 'Roboto Mono', monospace;
             font-size: 0.75rem;
             text-transform: uppercase;
-            color: #aaa;
+            color: #ccc;
             margin-bottom: 8px;
         }
 
@@ -117,7 +131,7 @@
 
         /* CONTENT STYLES */
         .content-wrapper {
-            max-width: 900px;
+            max-width: 1000px;
             width: 100%;
             display: grid;
             gap: 25px;
@@ -126,41 +140,51 @@
 
         .section-card {
             background: var(--card-bg);
+            border: 1px solid rgba(0, 242, 255, 0.1);
             border-left: 4px solid var(--neon-blue);
-            padding: 25px;
+            padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .section-card:hover {
             transform: translateY(-5px);
-            background: rgba(30, 30, 45, 0.9);
+            border-color: var(--neon-blue);
         }
 
         h2 {
             font-family: 'Orbitron', sans-serif;
             color: var(--neon-blue);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             border-bottom: 1px solid rgba(0, 242, 255, 0.2);
             padding-bottom: 10px;
             display: flex;
             align-items: center;
         }
 
-        h2::before {
-            content: '>>';
-            margin-right: 10px;
-            font-size: 1rem;
-            opacity: 0.7;
+        h2 img {
+            height: 32px;
+            width: auto;
+            margin-right: 15px;
         }
 
         h3 {
             color: #fff;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        h3 img {
+            height: 24px;
+            width: auto;
+            margin-right: 10px;
         }
 
         ul {
@@ -169,11 +193,11 @@
         }
 
         li {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             position: relative;
-            padding-left: 20px;
+            padding-left: 25px;
             line-height: 1.6;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         li::before {
@@ -184,31 +208,46 @@
             font-weight: bold;
         }
 
+        /* Inline icons for list items */
+        .item-icon {
+            height: 20px;
+            width: auto;
+            vertical-align: middle;
+            margin: 0 5px;
+            display: inline-block;
+        }
+
         .important-note {
-            background: rgba(255, 107, 107, 0.1);
-            border-left-color: #ff6b6b !important;
+            background: rgba(40, 10, 10, 0.9);
+            border-left-color: var(--danger) !important;
         }
 
         .important-note h2 {
-            color: #ff6b6b;
-            border-bottom-color: rgba(255, 107, 107, 0.2);
+            color: var(--danger);
+            border-bottom-color: rgba(255, 77, 77, 0.3);
         }
 
         .important-note li::before {
-            color: #ff6b6b;
+            color: var(--danger);
         }
 
         .conversion-table {
-            background: rgba(0,0,0,0.2);
-            padding: 15px;
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
             border-radius: 8px;
-            margin: 10px 0;
+            margin: 15px 0;
             font-family: 'Roboto Mono', monospace;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 242, 255, 0.1);
+        }
+
+        .conversion-table strong {
+            color: var(--neon-blue);
         }
 
         strong {
             color: #fff;
+            font-weight: 600;
         }
 
         /* Responsive */
@@ -227,6 +266,9 @@
             }
             .timer-text {
                 font-size: 1.8rem;
+            }
+            .section-card {
+                padding: 20px;
             }
         }
     </style>
@@ -251,36 +293,41 @@
     <div class="content-wrapper">
         <!-- SECCIÓN 1: MEJORAS QUE SE MANTIENEN -->
         <section class="section-card">
-            <h2>Mejoras de Season 2</h2>
+            <h2><img src="img/Starforge Crystal Lv.3.png" alt="">Mejoras de Season 2</h2>
             
             <h3>Gear Refinement</h3>
             <ul>
-                <li><strong>Refinamiento:</strong> Sube hasta nivel 30. (Niveles 21-30 usan <strong>Starforge Crystal T3</strong> + mystery metal).</li>
-                <li><strong>DPS:</strong> Mantén armadura +10/15 y ATK lo más alto posible.</li>
-                <li><strong>Conversión:</strong> Puedes convertir Starforge Crystals actuales. Requiere pociones fabricadas con <strong>Tokiwa Grass</strong> (1 Grass = 1 Potion).</li>
+                <li><strong>Refinamiento:</strong> Sube hasta nivel 30. (Niveles 21-30 usan <img src="img/Starforge Crystal Lv.3.png" class="item-icon"><strong>Starforge Crystal T3</strong> + mystery metal).</li>
+                <li><strong>DPS:</strong> Mantén armadura +10/15 y ATK/MATK lo más alto posible.</li>
+                <li><strong>Conversión:</strong> Puedes convertir <img src="img/Starforge Crystal Lv.1.webp" class="item-icon">crystals actuales. Requiere pociones fabricadas con <img src="img/Tokiwa Grass.webp" class="item-icon"><strong>Tokiwa Grass</strong> (1 Grass : 1 Potion).</li>
             </ul>
 
-            <h3>Habilidades y Niveles</h3>
+            <h3>Skills / Talent Tree</h3>
             <ul>
-                <li><strong>Reset de Libros:</strong> Habrá un evento de reset de libros de clase.</li>
-                <li><strong>Deep Sleep Levels:</strong> Nuevo sistema de niveles aparte del Adventurer Level.</li>
-                <li><strong>Quests:</strong> Completa las de S1 ahora; algunas de S2 requieren progreso previo.</li>
+                <li><img src="img/Libros.webp" class="item-icon"><strong>Class Book Reset Event:</strong> Sucede al inicio de la S2. Podrás resetear tus libros de clase.</li>
+            </ul>
+
+            <h3>Adventurer Level</h3>
+            <ul>
+                <li><strong>Deep Sleep Levels:</strong> Nuevo sistema de niveles aparte del Adventurer Level actual.</li>
+                <li><strong>Quests:</strong> Completa las de S1 ahora; algunas de S2 requieren progreso previo de S1.</li>
             </ul>
 
             <h3>Imagines y Armas</h3>
             <ul>
-                <li><strong>Imagines:</strong> Algunas clases reemplazan sus Imagines. <strong>Rorola</strong> es una opción muy fuerte para DPS.</li>
-                <li><strong>Ocean Weapon:</strong> Sigue siendo Best-in-Slot (BiS) durante toda la S2.</li>
+                <li><strong>Imagines:</strong> Algunas clases reemplazan sus Imagines. <strong>Rorola</strong> es muy fuerte para casi todas las clases.</li>
+                <li><strong>Ocean Weapon:</strong> Sigue siendo <strong>Best-in-Slot</strong> durante toda la S2 (solo para giga whales).</li>
             </ul>
         </section>
 
         <!-- SECCIÓN 2: LO QUE SE VUELVE INÚTIL -->
         <section class="section-card important-note">
-            <h2>Advertencias: Gear Obsoleto</h2>
+            <h2><img src="img/Dream Strength.png" alt="">Advertencias: Gear Obsoleto</h2>
             <ul>
-                <li><strong>Gear Nivel 80/90:</strong> No obtiene <strong>Dream Strength</strong> (stat vital para el daño en S2).</li>
-                <li><strong>Materiales S1:</strong> Refinement Stones y Alloy Shards de S1 <strong>no se pueden convertir</strong>. Úsalos o deséchalos.</li>
-                <li><strong>Emblema S1:</strong> Se elimina al inicio de la temporada. Los Season 1 Points se pierden.</li>
+                <li><strong>Gear Nivel 80/90:</strong> No obtiene <img src="img/Dream Strength.png" class="item-icon"><strong>Dream Strength</strong> (stat vital para el daño significativo en S2).</li>
+                <li><strong>Materiales S1:</strong> Refinement Stones y Alloy Shards de S1 no se pueden convertir. Úsalos ahora o guárdalos para Guild Cargo.</li>
+                <li><strong>Ocean Weapon Lv 100:</strong> Este arma obtiene <img src="img/Dream Strength.png" class="item-icon"><strong>Dream Strength</strong> gratis.</li>
+                <li><strong>Emblema S1:</strong> Se elimina al inicio de la temporada. Void Materials y Season 1 Points serán inutilizables.</li>
                 <li><strong>Gemas:</strong> Inutilizables en gear de S2. Reemplazadas por el <strong>Imprint System</strong>.</li>
             </ul>
         </section>
@@ -289,31 +336,33 @@
         <section class="section-card">
             <h2>Life Skills & Crafting</h2>
             <ul>
-                <li><strong>Límite de Nivel:</strong> El nivel de Life Skills aumenta.</li>
+                <li><strong>Life Skill Leveling:</strong> Mantienes tus niveles, pero el límite aumenta. Las weeklies se reemplazan por <strong>Life Skill EXP Boxes</strong> en la Honor Store.</li>
                 <li><strong>Legendary Gear:</strong> Ahora pueden tener el <strong>Star Morado</strong>. Requieren Engram Crystal Shards.</li>
-                <li><strong>Prioridad de Crafteo:</strong> Arma Nivel 120 > Charm > Botas.</li>
-                <li><strong>Requisitos de Profesión:</strong>
-                    <ul>
-                        <li>Armas (SK/HG/WK/SB): Smelting (Niv. 42-50)</li>
-                        <li>Armas Rango: Artisanry (Niv. 45-50)</li>
-                        <li>Charm/Boots: Weaving (Niv. 41-51)</li>
-                    </ul>
-                </li>
+                <li><strong>Prioridad:</strong> Arma Nivel 120 > Charm > Botas.</li>
+            </ul>
+
+            <h3><img src="img/Smelting.webp" class="item-icon">Requisitos de Profesión</h3>
+            <ul>
+                <li><strong>Armas (SK/HG):</strong> <img src="img/Smelting.webp" class="item-icon"><strong>Smelting</strong> (Nivel 42/48)</li>
+                <li><strong>Armas (WK/SB):</strong> <img src="img/Smelting.webp" class="item-icon"><strong>Smelting</strong> (Nivel 44/50)</li>
+                <li><strong>Clases Rango:</strong> <img src="img/Artisanry.webp" class="item-icon"><strong>Artisanry</strong> (Nivel 45/50)</li>
+                <li><strong>Charms:</strong> <img src="img/Weaving.webp" class="item-icon"><strong>Weaving</strong> (Nivel 45/51)</li>
+                <li><strong>Boots:</strong> <img src="img/Weaving.webp" class="item-icon"><strong>Weaving</strong> (Agi/Int) o <img src="img/Smelting.webp" class="item-icon"><strong>Smelting</strong> (Str).</li>
             </ul>
         </section>
 
         <!-- SECCIÓN 4: TOKIWA GRASS & CONVERSIÓN -->
         <section class="section-card">
-            <h2>Guía de Conversión (Tokiwa Grass)</h2>
+            <h2><img src="img/Tokiwa Grass.webp" alt="">Guía de Conversión</h2>
             <div class="conversion-table">
-                • 1 Starforge Potion = 1 Tokiwa Grass + 10 Stamina<br>
-                • T1 > T2: 1 Potion + 2 T1 Crystals<br>
-                • T2 > T3: 3 Potions + 2 T2 Crystals
+                • 1 Starforge Potion = 1 <img src="img/Tokiwa Grass.webp" class="item-icon"><strong>Tokiwa Grass</strong> + 10 Stamina<br>
+                • <strong>T1 > T2:</strong> 1 Potion + 2 T1 Crystals<br>
+                • <strong>T2 > T3:</strong> 3 Potions + 2 T2 Crystals
             </div>
-            <h3>Uso de Materiales Universales</h3>
+            <h3>Materiales Universales</h3>
             <ul>
-                <li>Cada <strong>Purple Imagine</strong> necesita 5x Purple Universal Mats (Total 30 Grass para T0-T5).</li>
-                <li>Cada <strong>NPC Legendary Imagine</strong> necesita 10x Legendary Universal Mats (Total 300 Grass para T0-T5).</li>
+                <li><strong>Purple Imagine:</strong> 5x Purple Universal Mats (Total 30 Grass para T0-T5).</li>
+                <li><strong>NPC Legendary Imagine:</strong> 10x Legendary Universal Mats (Total 300 Grass para T0-T5).</li>
             </ul>
         </section>
 
@@ -321,9 +370,9 @@
         <section class="section-card">
             <h2>Limpieza de Inventario</h2>
             <ul>
-                <li><strong>Vender/Tirar:</strong> Pociones/Serums de S1, Raw Materials de Botany/Mineralogy/Gemology, Reforge Stones (40-80), Purple Imagine Wills.</li>
-                <li><strong>Comprar:</strong> S1 Legendary Imagine Materials (si eres whale) y sobre todo <strong>Tokiwa Grass</strong>.</li>
-                <li><strong>Mercado:</strong> Las restricciones de comercio cambian de 30 a 90 días.</li>
+                <li><strong>Vender/Tirar:</strong> Pociones/Serums S1, Raw Materials de Botany/Mineralogy/Gemology, Reforge Stones (40-80), Purple Imagine Wills.</li>
+                <li><strong>Mercado:</strong> Restricciones cambian de 30 a 90 días. Los <img src="img/Libros.webp" class="item-icon"><strong>Class Books</strong> podrían bajar de precio el 15 de enero.</li>
+                <li><strong>Wound Piggy:</strong> Es bueno en S2 para curación de grupo y saltar fases en Dungeons.</li>
             </ul>
         </section>
 
@@ -331,11 +380,11 @@
         <section class="section-card">
             <h2>Tips Misceláneos</h2>
             <ul>
-                <li>Guarda <strong>Wish Coins</strong> para Rorola.</li>
-                <li>Usa <strong>Bound Rose Orbs</strong> para S2 Gold Imagine Mats.</li>
-                <li><strong>Presets:</strong> Se lanzan en S2 (puedes tener hasta 10). Permiten cambiar Clase, Skills, Gear e Imagines.</li>
-                <li><strong>Shadow Hunter Set:</strong> Ahora se obtiene farmeando materiales garantizados.</li>
-                <li><strong>Importante:</strong> ¡Aprende Mahjong!</li>
+                <li>Guarda <strong>Wish Coins</strong> para Rorola y <strong>Bound Rose Orbs</strong> para S2 Gold Imagine Mats.</li>
+                <li><strong>Hard/Master Mode:</strong> Probabilidad garantizada de 1x legendary (3x con Cheer-Up Treat).</li>
+                <li><strong>Presets:</strong> Hasta 10 disponibles. Permiten cambiar Clase, Skills, Talents, Modules, Imagines y Gear.</li>
+                <li><strong>Shadow Hunter Set:</strong> Se obtiene farmeando materiales garantizados en S2.</li>
+                <li><strong>¡Importante!:</strong> Aprende Mahjong.</li>
             </ul>
         </section>
     </div>
@@ -362,7 +411,7 @@
                 `${minutes}<span class="timer-unit">m</span>`;
         }
 
-        setInterval(updateTimer, 60000); // Actualizar cada minuto es suficiente y más eficiente
+        setInterval(updateTimer, 60000);
         updateTimer();
     </script>
 </body>
