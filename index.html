@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Season 2 Timer Overlay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00f2ff;
+            --tech-bg: rgba(0, 0, 0, 0.7);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent; /* Fondo transparente para OBS */
+            font-family: 'Orbitron', sans-serif;
+            color: rgb(255, 255, 255);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .overlay-container {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 2px solid #00f2ff;
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.5);
+            backdrop-filter: blur(8px);
+            position: relative;
+        }
+
+        .image-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #00f2ff;
+            overflow: hidden;
+            margin-right: 15px;
+            margin-left: -15px;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(1.2) contrast(1.1);
+        }
+
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 15px;
+        }
+
+        .season-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #00f2ff;
+            margin-bottom: 2px;
+            text-shadow: 0 0 12px #00f2ff;
+            font-weight: 700;
+        }
+
+        .subtitle-text {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #e0e0e0;
+            margin-bottom: 12px;
+            font-weight: 400;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+        }
+
+        .timer-text {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 2.8rem;
+            font-weight: 700;
+            white-space: nowrap;
+            color: #ffffff;
+        }
+
+        .timer-unit {
+            font-size: 1rem;
+            margin-left: 5px;
+            margin-right: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: lowercase;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay-container">
+        <div class="image-container">
+            <img src="T2.png" alt="T2">
+        </div>
+        <div class="text-container">
+            <div class="season-text">Season 2</div>
+            <div class="subtitle-text">Echoes of Lost Nightmares</div>
+            <div id="timer" class="timer-text">00<span class="timer-unit">d</span> 00<span class="timer-unit">h</span> 00<span class="timer-unit">m</span></div>
+        </div>
+    </div>
+
+    <script>
+        function updateTimer() {
+            // Fecha objetivo: 15 de enero de 2026, 20:00 (Hora local de la PC)
+            const targetDate = new Date(2026, 0, 15, 20, 0, 0); 
+            
+            const now = new Date();
+            const timerElement = document.getElementById('timer');
+
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                timerElement.innerHTML = "¡EVENTO INICIADO!";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            timerElement.innerHTML = 
+                `${days}<span class="timer-unit">d</span> ` +
+                `${hours}<span class="timer-unit">h</span> ` +
+                `${minutes}<span class="timer-unit">m</span>`;
+        }
+
+        // Actualizar cada segundo para que los minutos se sientan vivos
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>
