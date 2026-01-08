@@ -13,8 +13,17 @@
             --tech-bg: rgba(10, 10, 15, 0.85);
             --card-bg: rgba(15, 15, 25, 0.9);
             --accent-glow: rgba(0, 242, 255, 0.4);
-            --text-main: #e0e0e0;
+            --text-main: #ffffff;
+            --text-dim: #b0b0b0;
             --danger: #ff4d4d;
+            
+            /* Rarity Colors */
+            --rarity-common: #ffffff;
+            --rarity-uncommon: #1eff00;
+            --rarity-rare: #0070dd;
+            --rarity-epic: #a335ee;
+            --rarity-legendary: #e6cc80;
+            --rarity-artifact: #ff8000;
         }
 
         * {
@@ -140,45 +149,65 @@
 
         .section-card {
             background: var(--card-bg);
-            border: 1px solid rgba(0, 242, 255, 0.1);
+            border: 1px solid rgba(0, 242, 255, 0.15);
             border-left: 4px solid var(--neon-blue);
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            backdrop-filter: blur(15px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.3), transparent);
         }
 
         .section-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--neon-blue);
+            transform: translateY(-5px) scale(1.01);
+            border-color: rgba(0, 242, 255, 0.5);
+            box-shadow: 0 15px 40px rgba(0, 242, 255, 0.15);
         }
 
         h2 {
             font-family: 'Orbitron', sans-serif;
             color: var(--neon-blue);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-top: 0;
             margin-bottom: 25px;
-            border-bottom: 1px solid rgba(0, 242, 255, 0.2);
-            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0, 242, 255, 0.2);
+            padding-bottom: 12px;
             display: flex;
             align-items: center;
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+            letter-spacing: 1px;
         }
 
         h2 img {
-            height: 32px;
+            height: 36px;
             width: auto;
             margin-right: 15px;
+            filter: drop-shadow(0 0 8px var(--neon-blue));
         }
 
         h3 {
             color: #fff;
-            font-size: 1.2rem;
-            margin-top: 20px;
-            margin-bottom: 15px;
+            font-size: 1.25rem;
+            margin-top: 25px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
+            border-left: 3px solid var(--neon-blue);
+            padding-left: 12px;
         }
 
         h3 img {
@@ -232,22 +261,58 @@
         }
 
         .conversion-table {
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.5);
             padding: 20px;
-            border-radius: 8px;
-            margin: 15px 0;
+            border-radius: 10px;
+            margin: 20px 0;
             font-family: 'Roboto Mono', monospace;
-            font-size: 0.9rem;
-            border: 1px solid rgba(0, 242, 255, 0.1);
+            font-size: 0.95rem;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+            line-height: 1.8;
         }
 
         .conversion-table strong {
             color: var(--neon-blue);
+            text-shadow: 0 0 8px rgba(0, 242, 255, 0.4);
+        }
+
+        /* Item Highlighting */
+        .item-name {
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255,255,255,0.1);
+            letter-spacing: 0.5px;
+        }
+
+        .rarity-common { color: var(--rarity-common); }
+        .rarity-uncommon { color: var(--rarity-uncommon); text-shadow: 0 0 8px rgba(30, 255, 0, 0.3); }
+        .rarity-rare { color: var(--rarity-rare); text-shadow: 0 0 8px rgba(0, 112, 221, 0.4); }
+        .rarity-epic { color: var(--rarity-epic); text-shadow: 0 0 8px rgba(163, 53, 238, 0.4); }
+        .rarity-legendary { color: var(--rarity-legendary); text-shadow: 0 0 10px rgba(255, 128, 0, 0.5); }
+        .rarity-artifact { color: var(--rarity-artifact); text-shadow: 0 0 10px rgba(230, 204, 128, 0.5); }
+
+        .key-term {
+            color: var(--neon-blue);
+            font-weight: 700;
+            border-bottom: 1px dashed rgba(0, 242, 255, 0.3);
         }
 
         strong {
             color: #fff;
-            font-weight: 600;
+            font-weight: 700;
+        }
+
+        .item-icon {
+            height: 24px;
+            width: auto;
+            vertical-align: middle;
+            margin: -4px 6px 0 6px;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+            transition: transform 0.2s ease;
+        }
+
+        .item-icon:hover {
+            transform: scale(1.2);
         }
 
         /* IMAGINES SECTION STYLES */
@@ -355,9 +420,9 @@
         /* Imagine Content Layout */
         .imagine-display {
             display: none;
-            grid-template-columns: 1.5fr 1fr;
+            grid-template-columns: 1.6fr 1fr;
             gap: 30px;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .imagine-display.active {
@@ -365,47 +430,64 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .imagine-info {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
         .imagine-image-box {
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(0, 242, 255, 0.1);
         }
 
         .imagine-image-box img {
             width: 100%;
-            max-width: 300px;
-            border-radius: 12px;
+            max-width: 320px;
+            border-radius: 15px;
             border: 2px solid var(--neon-blue);
-            box-shadow: 0 0 20px var(--accent-glow);
+            box-shadow: 0 0 25px var(--accent-glow);
+            transition: transform 0.4s ease;
+        }
+
+        .imagine-image-box img:hover {
+            transform: scale(1.03) rotate(1deg);
         }
 
         .info-block {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 3px solid var(--neon-blue);
+            background: rgba(20, 20, 30, 0.6);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--neon-blue);
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.3);
+            font-family: 'Inter', sans-serif; /* Mas legible */
+            line-height: 1.5;
         }
 
         .info-title {
             color: var(--neon-blue);
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            margin-bottom: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
             display: block;
+            border-bottom: 1px solid rgba(0, 242, 255, 0.1);
+            padding-bottom: 8px;
         }
 
         .simplified-content {
             display: block;
+            color: #eee;
         }
 
         .extended-content {
@@ -493,26 +575,26 @@
             
             <h3>Gear Refinement</h3>
             <ul>
-                <li><strong>Refinamiento:</strong> Sube hasta nivel 30. (Niveles 21-30 usan <img src="img/Starforge Crystal Lv.3.png" class="item-icon"><strong>Starforge Crystal T3</strong> + mystery metal).</li>
-                <li><strong>DPS:</strong> Mantén armadura +10/15 y ATK/MATK lo más alto posible.</li>
-                <li><strong>Conversión:</strong> Puedes convertir <img src="img/Starforge Crystal Lv.1.webp" class="item-icon">crystals actuales. Requiere pociones fabricadas con <img src="img/Tokiwa Grass.webp" class="item-icon"><strong>Tokiwa Grass</strong> (1 Grass : 1 Potion).</li>
+                <li><strong>Refinamiento:</strong> Sube hasta <span class="key-term">nivel 30</span>. (Niveles 21-30 usan <img src="img/Starforge Crystal Lv.3.png" class="item-icon"><span class="item-name rarity-epic">Starforge Crystal T3</span> + <span class="item-name rarity-uncommon">mystery metal</span>).</li>
+                <li><strong>DPS:</strong> Mantén armadura <span class="key-term">+10/15</span> y <span class="key-term">ATK/MATK</span> lo más alto posible.</li>
+                <li><strong>Conversión:</strong> Puedes convertir <img src="img/Starforge Crystal Lv.1.webp" class="item-icon"><span class="item-name rarity-rare">crystals actuales</span>. Requiere pociones fabricadas con <img src="img/Tokiwa Grass.webp" class="item-icon"><span class="item-name rarity-epic">Tokiwa Grass</span> (1 Grass : 1 Potion).</li>
             </ul>
 
             <h3>Skills / Talent Tree</h3>
             <ul>
-                <li><img src="img/Libros.webp" class="item-icon"><strong>Class Book Reset Event:</strong> Sucede al inicio de la S2. Podrás resetear tus libros de clase.</li>
+                <li><img src="img/Libros.webp" class="item-icon"><span class="item-name rarity-rare">Class Book Reset Event</span>: Sucede al inicio de la S2. Podrás resetear tus libros de clase.</li>
             </ul>
 
             <h3>Adventurer Level</h3>
             <ul>
-                <li><strong>Deep Sleep Levels:</strong> Nuevo sistema de niveles aparte del Adventurer Level actual.</li>
-                <li><strong>Quests:</strong> Completa las de S1 ahora; algunas de S2 requieren progreso previo de S1.</li>
+                <li><strong>Deep Sleep Levels:</strong> <span class="key-term">Nuevo sistema</span> de niveles aparte del Adventurer Level actual.</li>
+                <li><strong>Quests:</strong> Completa las de <span class="key-term">S1 ahora</span>; algunas de S2 requieren progreso previo de S1.</li>
             </ul>
 
             <h3>Imagines y Armas</h3>
             <ul>
-                <li><strong>Imagines:</strong> Son "permanentes" (algunas clases los cambian). <strong>Rorola</strong> y <strong>Muku Chief</strong> son DPS muy fuertes.</li>
-                <li><strong>Ocean Weapon:</strong> Sigue siendo <strong>Best-in-Slot</strong> durante toda la S2 (solo para giga whales). Las armas legendarias ya no caen en dungeons (solo Leisure/Pioneer).</li>
+                <li><strong>Imagines:</strong> Son "permanentes" (algunas clases los cambian). <span class="item-name rarity-legendary">Rorola</span> y <span class="item-name rarity-legendary">Muku Chief</span> son DPS muy fuertes o <span class="item-name rarity-legendary">Dorothy</span> que es basicamente una nueva clase DPS.</li>
+                <li><strong><span class="item-name rarity-artifact">Ocean Weapon:</span></strong> Sigue siendo <span class="item-name rarity-artifact">Best-in-Slot</span> durante toda la S2 (solo para giga whales). Las <span class="item-name rarity-legendary">armas legendarias</span> ya no caen en dungeons (solo Leisure/Pioneer).</li>
             </ul>
         </section>
 
@@ -520,11 +602,11 @@
         <section class="section-card important-note">
             <h2><img src="img/Dream Strength.png" alt="">Advertencias: Gear Obsoleto</h2>
             <ul>
-                <li><strong>Gear Nivel 80/90:</strong> No obtiene <img src="img/Dream Strength.png" class="item-icon"><strong>Dream Strength</strong> (stat vital para el daño significativo en S2).</li>
-                <li><strong>Materiales S1:</strong> Reforge Stones y Alloy Shards de S1 no se pueden convertir. Úsalos ahora o guárdalos para Guild Cargo.</li>
-                <li><strong>Ocean Weapon Lv 100:</strong> Este arma obtiene <img src="img/Dream Strength.png" class="item-icon"><strong>Dream Strength</strong> gratis.</li>
-                <li><strong>Emblema S1:</strong> Se elimina al inicio de la temporada. Void Materials y Season 1 Points serán inutilizables.</li>
-                <li><strong>Gemas:</strong> Inutilizables en gear de S2. Reemplazadas por el <strong>Imprint System</strong>.</li>
+                <li><strong>Gear Nivel 80/90:</strong> No obtiene <img src="img/Dream Strength.png" class="item-icon"><span class="item-name rarity-legendary">Dream Strength</span> (stat vital para el daño significativo en S2).</li>
+                <li><strong>Materiales S1:</strong> <span class="item-name rarity-epic">Reforge Stones</span> y <span class="item-name rarity-uncommon">Alloy Shards</span> de S1 no se pueden convertir. Úsalos ahora o guárdalos para Guild Cargo.</li>
+                <li><strong>Ocean Weapon Lv 100:</strong> Este arma obtiene <span class="item-name rarity-legendary">Dream Strength</span> gratis.</li>
+                <li><strong>Emblema S1:</strong> Se <span class="key-term">elimina</span> al inicio de la temporada. <span class="item-name rarity-uncommon">Void Materials</span> y <span class="item-name rarity-uncommon">Season 1 Points</span> serán inutilizables.</li>
+                <li><strong>Gemas:</strong> Inutilizables en gear de S2. Reemplazadas por el <span class="key-term">Imprint System</span>.</li>
             </ul>
         </section>
 
@@ -532,18 +614,18 @@
         <section class="section-card">
             <h2>Life Skills & Crafting</h2>
             <ul>
-                <li><strong>Life Skill Leveling:</strong> Mantienes tus niveles, pero el límite aumenta. Las weeklies se reemplazan por <strong>Life Skill EXP Boxes</strong> en la Honor Store.</li>
-                <li><strong>Legendary Gear:</strong> Ahora pueden tener el <strong>Stats Morado.</strong></li>
-                <li><strong>Prioridad:</strong> Arma Nivel 120 > Charm > Botas.</li>
+                <li><strong>Life Skill Leveling:</strong> Mantienes tus niveles, pero el límite aumenta. Las weeklies se reemplazan por <span class="item-name rarity-rare">Life Skill EXP Boxes</span> en la <span class="key-term">Honor Store</span>.</li>
+                <li><strong>Legendary Gear:</strong> Ahora pueden tener el <span class="item-name rarity-epic">Stats Morado</span>.</li>
+                <li><strong>Prioridad:</strong> <span class="item-name rarity-legendary">Arma Nivel 120</span> > <span class="item-name rarity-legendary">Charm</span> > <span class="item-name rarity-legendary">Botas</span>.</li>
             </ul>
 
             <h3><img src="img/Smelting.webp" class="item-icon">Requisitos de Profesión (S1 / S2)</h3>
             <ul>
-                <li><strong>Armas (SK/HG):</strong> <img src="img/Smelting.webp" class="item-icon"><strong>Smelting</strong> (Nivel 42 / 48)</li>
-                <li><strong>Armas (WK/SB):</strong> <img src="img/Smelting.webp" class="item-icon"><strong>Smelting</strong> (Nivel 44 / 50)</li>
-                <li><strong>Clases Rango:</strong> <img src="img/Artisanry.webp" class="item-icon"><strong>Artisanry</strong> (Nivel 45 / 50)</li>
-                <li><strong>Charms:</strong> <img src="img/Weaving.webp" class="item-icon"><strong>Weaving</strong> (Nivel 45 / 51)</li>
-                <li><strong>Boots:</strong> <img src="img/Weaving.webp" class="item-icon"><strong>Weaving</strong> (Agi/Int: 43 / 49) o <img src="img/Smelting.webp" class="item-icon"><strong>Smelting</strong> (Str: 41 / 47).</li>
+                <li><strong>Armas (SK/HG):</strong> <img src="img/Smelting.webp" class="item-icon"><span class="item-name">Smelting</span> (<span class="key-term">Nivel 42 / 48</span>)</li>
+                <li><strong>Armas (WK/SB):</strong> <img src="img/Smelting.webp" class="item-icon"><span class="item-name">Smelting</span> (<span class="key-term">Nivel 44 / 50</span>)</li>
+                <li><strong>Clases Rango:</strong> <img src="img/Artisanry.webp" class="item-icon"><span class="item-name">Artisanry</span> (<span class="key-term">Nivel 45 / 50</span>)</li>
+                <li><strong>Charms:</strong> <img src="img/Weaving.webp" class="item-icon"><span class="item-name">Weaving</span> (<span class="key-term">Nivel 45 / 51</span>)</li>
+                <li><strong>Boots:</strong> <img src="img/Weaving.webp" class="item-icon"><span class="item-name">Weaving</span> (Agi/Int: <span class="key-term">43 / 49</span>) o <img src="img/Smelting.webp" class="item-icon"><span class="item-name">Smelting</span> (Str: <span class="key-term">41 / 47</span>).</li>
             </ul>
         </section>
 
@@ -551,16 +633,16 @@
         <section class="section-card">
             <h2><img src="img/Tokiwa Grass.webp" alt="">Guía de Conversión</h2>
             <div class="conversion-table">
-                • 1 Starforge Potion = 1 <img src="img/Tokiwa Grass.webp" class="item-icon"><strong>Tokiwa Grass</strong> + 10 Focus<br>
-                • 1 S1 Potion = 1 <img src="img/Tokiwa Grass.webp" class="item-icon">Tokiwa Grass<br>
-                • <strong>T1 > T2:</strong> 1 Potion + 2 T1 Crystals = 1 T2 Crystal<br>
-                • <strong>T2 > T3:</strong> 3 Potions + 2 T2 Crystals = 1 T3 Crystal
+                • 1 <span class="item-name rarity-uncommon">Starforge Potion</span> = 1 <img src="img/Tokiwa Grass.webp" class="item-icon"><span class="item-name rarity-epic">Tokiwa Grass</span> + 10 <span class="item-name rarity-artifact">Focus</span><br>
+                • 1 <span class="item-name rarity-uncommon">S1 Potion</span> = 1 <img src="img/Tokiwa Grass.webp" class="item-icon"><span class="item-name rarity-epic">Tokiwa Grass</span><br>
+                • <strong>T1 > T2:</strong> 1 <img src="img/Potion.webp" class="item-icon"><span class="item-name rarity-uncommon">Potion</span> + 2 <span class="item-name rarity-rare">T1 Crystals</span> = 1 <span class="item-name rarity-rare">T2 Crystal</span><br>
+                • <strong>T2 > T3:</strong> 3 <img src="img/Potion.webp" class="item-icon"><span class="item-name rarity-uncommon">Potions</span> + 2 <span class="item-name rarity-rare">T2 Crystals</span> = 1 <span class="item-name rarity-epic">T3 Crystal</span>
             </div>
             <h3>Materiales Universales</h3>
             <ul>
-                <li><strong>Purple Imagine:</strong> 1 Potion + 1 Purple S1 Mat = 1 Universal Mat (30 Grass total para T0-T5).</li>
-                <li><strong>NPC Legendary:</strong> 5 Potions + 1 Legend S1 Mat = 1 Universal Mat (300 Grass total para T0-T5).</li>
-                <li><strong>Timegate:</strong> Algunos nodos Tier 2 están bloqueados hasta Master 1.</li>
+                <li><strong>Purple Imagine:</strong> 1 <img src="img/Potion.webp" class="item-icon"><span class="item-name rarity-uncommon">Potion</span> + 1 <span class="item-name rarity-epic">Purple S1 Mat</span> = 1 <span class="item-name rarity-rare">Universal Mat</span> (<span class="key-term">30 Grass total</span> para T0-T5).</li>
+                <li><strong>NPC Legendary:</strong> 5 <img src="img/Potion.webp" class="item-icon"><span class="item-name rarity-uncommon">Potions</span> + 1 <span class="item-name rarity-legendary">Legend S1 Mat</span> = 1 <span class="item-name rarity-rare">Universal Mat</span> (<span class="key-term">300 Grass total</span> para T0-T5).</li>
+                <li><strong>Timegate:</strong> Algunos nodos Tier 2 están bloqueados hasta <span class="key-term">Master 1</span>.</li>
             </ul>
         </section>
 
@@ -568,29 +650,28 @@
         <section class="section-card">
             <h2>Limpieza de Inventario</h2>
             <ul>
-                <li><strong>Abre antes de S2:</strong> Todas las cajas de Gear (40-80), Shards, Pociones y Serums.</li>
-                <li><strong>Vender/Tirar:</strong> Raw Materials (Botany, Gemology, etc.), Reforge Stones (40-80), Gems (o guarda para Guild Cargo).</li>
-                <li><strong>Mercado:</strong> Restricciones cambian de 30 a 90 días. Los <img src="img/Libros.webp" class="item-icon"><strong>Class Books</strong> podrían bajar de precio tras el 15 de enero.</li>
+                <li><strong>Abre antes de S2:</strong> Todas las cajas de <span class="item-name rarity-rare">Gear (40-80)</span>, <span class="item-name rarity-uncommon">Shards</span>, <span class="item-name rarity-rare">Pociones</span> y <span class="item-name rarity-rare">Serums</span>.</li>
+                <li><strong>Vender/Tirar:</strong> <span class="item-name rarity-common">Raw Materials</span> (Botany, Gemology, etc.), <span class="item-name rarity-uncommon">Reforge Stones (40-80)</span>, <span class="item-name rarity-rare">Gems</span> (o guarda para Guild Cargo).</li>
+                <li><strong>Mercado:</strong> Restricciones cambian de <span class="key-term">30 a 90 días</span>. Los <img src="img/Libros.webp" class="item-icon"><span class="item-name rarity-rare">Class Books</span> podrían bajar de precio tras el <span class="key-term">15 de enero</span>.</li>
             </ul>
         </section>
 
         <!-- SECCIÓN 6: CONSEJOS FINALES -->
         <section class="section-card">
-            <h2>Tips Misceláneos</h2>
+            <h2>Tips</h2>
             <ul>
-                <li><strong>Monedas:</strong> Guarda <strong>Will Wish Coins</strong> (meta: Rorola T3). Usa <strong>Bound Rose Orbs</strong> para materiales dorados S2 en la Mystery Store.</li>
-                <li><strong>Loot:</strong> Hard/Master garantiza 1x Legendary Gear. Usa <strong>Cheer-Up Treat</strong> para obtener 3x.</li>
-                <li><strong>Presets:</strong> 3 gratuitos (hasta 10 con Unbound Rose Orbs). Guardan Clase, Skills, Talents, Modules, Imagines y Gear. (NO Emblemas).</li>
-                <li><strong>Reset:</strong> Usa tus Class Books antes del 15 de Enero para el evento de Reset.</li>
+                <li><strong>Monedas:</strong> Guarda <span class="item-name rarity-epic">Will Wish Coins</span> (meta: <span class="item-name rarity-epic">Rorola T3</span>). Usa <span class="item-name rarity-artifact">Bound Rose Orbs</span> para materiales dorados S2 en la <span class="key-term">Mystery Store</span>.</li>
+                <li><strong>Loot:</strong> <span class="key-term">Hard/Master</span> garantiza <span class="item-name rarity-legendary">1x Legendary Gear</span>. Usa <span class="item-name rarity-rare">Cheer-Up Treat</span> para obtener <span class="key-term">3x</span>.</li>
+                <li><strong>Presets:</strong> <span class="key-term">3 gratuitos</span> (hasta 10 con Unbound Rose Orbs). Guardan Clase, Skills, Talents, Modules, Imagines y Gear. (<span class="danger">NO Emblemas</span>).</li>
+                <li><strong>Reset:</strong> Usa tus <span class="item-name rarity-rare">Class Books</span> antes del <span class="key-term">15 de Enero</span> para el evento de Reset.</li>
                 <li><strong>Shadow Hunter Set:</strong> Se obtiene farmeando materiales garantizados en S2.</li>
-                <li><strong>Aprende Mahjong.</strong> </li>
             </ul>
         </section>
 
         <!-- SECCIÓN DE NPC IMAGINES (MOVIDA) -->
         <div class="imagines-section" id="npc-imagines-section">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h2 style="border:none; margin:0;">NPC Imagines</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(0, 242, 255, 0.2); padding-bottom: 15px;">
+                <h2 style="border:none; margin:0; text-shadow: 0 0 10px var(--neon-blue);">NPC Imagines</h2>
                 <div class="switch-wrapper">
                     <span>Simplificado</span>
                     <label class="switch">
@@ -734,8 +815,8 @@
 
         <!-- SECCIÓN DE LEGENDARY IMAGINES (MOVIDA ABAJO) -->
         <div class="imagines-section" id="legendary-imagines-section">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h2 style="border:none; margin:0;">Legendary Imagines</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(0, 242, 255, 0.2); padding-bottom: 15px;">
+                <h2 style="border:none; margin:0; text-shadow: 0 0 10px var(--neon-blue);">Legendary Imagines</h2>
                 <div class="switch-wrapper">
                     <span>Simplificado</span>
                     <label class="switch">
