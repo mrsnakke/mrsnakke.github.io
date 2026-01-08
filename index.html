@@ -391,10 +391,20 @@
 
     <script>
         function updateTimer() {
-            const targetDate = new Date(2026, 0, 15, 20, 0, 0); 
+            // 1. Definir la fecha objetivo en GMT-8 (PST)
+            // 15 de enero de 2026, 20:00:00 GMT-8
+            const targetDateGMT8 = new Date("2026-01-15T20:00:00-08:00");
+
+            // 2. Obtener la hora actual en la PC del usuario
             const now = new Date();
+
+            // 3. Calcular la diferencia en milisegundos directamente.
+            // Los objetos Date en JS siempre almacenan el tiempo en UTC internamente,
+            // por lo que restar dos objetos Date nos da la diferencia real de tiempo,
+            // sin importar en qué zona horaria esté configurada la PC.
+            const diff = targetDateGMT8 - now;
+
             const timerElement = document.getElementById('timer');
-            const diff = targetDate - now;
 
             if (diff <= 0) {
                 timerElement.innerHTML = "¡TEMPORADA 2 INICIADA!";
@@ -411,6 +421,7 @@
                 `${minutes}<span class="timer-unit">m</span>`;
         }
 
+        // Actualizar cada minuto
         setInterval(updateTimer, 60000);
         updateTimer();
     </script>
