@@ -250,8 +250,204 @@
             font-weight: 600;
         }
 
+        /* IMAGINES SECTION STYLES */
+        .imagines-section {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .imagines-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            background: rgba(0, 242, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(0, 242, 255, 0.2);
+        }
+
+        /* Switch Styles */
+        .switch-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .4s;
+            border-radius: 24px;
+            border: 1px solid var(--neon-blue);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 3px;
+            background-color: var(--neon-blue);
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: rgba(0, 242, 255, 0.3);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Imagine Content Layout */
+        .imagine-display {
+            display: none;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .imagine-display.active {
+            display: grid;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .imagine-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .imagine-image-box {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .imagine-image-box img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 12px;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .info-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--neon-blue);
+        }
+
+        .info-title {
+            color: var(--neon-blue);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .simplified-content {
+            display: block;
+        }
+
+        .extended-content {
+            display: none;
+        }
+
+        body.extended-mode .simplified-content {
+            display: none;
+        }
+
+        body.extended-mode .extended-content {
+            display: block;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .stat-item {
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+
+        .stat-item strong {
+            color: var(--neon-blue);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
+            .imagine-display {
+                grid-template-columns: 1fr;
+            }
+            .imagine-image-box {
+                order: -1;
+            }
+            .imagines-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
             .header-container {
                 padding: 15px 25px;
                 border-radius: 40px;
@@ -315,8 +511,8 @@
 
             <h3>Imagines y Armas</h3>
             <ul>
-                <li><strong>Imagines:</strong> Algunas clases reemplazan sus Imagines. <strong>Rorola</strong> es muy fuerte para casi todas las clases.</li>
-                <li><strong>Ocean Weapon:</strong> Sigue siendo <strong>Best-in-Slot</strong> durante toda la S2 (solo para giga whales).</li>
+                <li><strong>Imagines:</strong> Son "permanentes" (algunas clases los cambian). <strong>Rorola</strong> y <strong>Muku Chief</strong> son DPS muy fuertes.</li>
+                <li><strong>Ocean Weapon:</strong> Sigue siendo <strong>Best-in-Slot</strong> durante toda la S2 (solo para giga whales). Las armas legendarias ya no caen en dungeons (solo Leisure/Pioneer).</li>
             </ul>
         </section>
 
@@ -325,7 +521,7 @@
             <h2><img src="img/Dream Strength.png" alt="">Advertencias: Gear Obsoleto</h2>
             <ul>
                 <li><strong>Gear Nivel 80/90:</strong> No obtiene <img src="img/Dream Strength.png" class="item-icon"><strong>Dream Strength</strong> (stat vital para el daño significativo en S2).</li>
-                <li><strong>Materiales S1:</strong> Refinement Stones y Alloy Shards de S1 no se pueden convertir. Úsalos ahora o guárdalos para Guild Cargo.</li>
+                <li><strong>Materiales S1:</strong> Reforge Stones y Alloy Shards de S1 no se pueden convertir. Úsalos ahora o guárdalos para Guild Cargo.</li>
                 <li><strong>Ocean Weapon Lv 100:</strong> Este arma obtiene <img src="img/Dream Strength.png" class="item-icon"><strong>Dream Strength</strong> gratis.</li>
                 <li><strong>Emblema S1:</strong> Se elimina al inicio de la temporada. Void Materials y Season 1 Points serán inutilizables.</li>
                 <li><strong>Gemas:</strong> Inutilizables en gear de S2. Reemplazadas por el <strong>Imprint System</strong>.</li>
@@ -337,17 +533,17 @@
             <h2>Life Skills & Crafting</h2>
             <ul>
                 <li><strong>Life Skill Leveling:</strong> Mantienes tus niveles, pero el límite aumenta. Las weeklies se reemplazan por <strong>Life Skill EXP Boxes</strong> en la Honor Store.</li>
-                <li><strong>Legendary Gear:</strong> Ahora pueden tener el <strong>Star Morado</strong>. Requieren Engram Crystal Shards.</li>
+                <li><strong>Legendary Gear:</strong> Ahora pueden tener el <strong>Stats Morado.</strong></li>
                 <li><strong>Prioridad:</strong> Arma Nivel 120 > Charm > Botas.</li>
             </ul>
 
-            <h3><img src="img/Smelting.webp" class="item-icon">Requisitos de Profesión</h3>
+            <h3><img src="img/Smelting.webp" class="item-icon">Requisitos de Profesión (S1 / S2)</h3>
             <ul>
-                <li><strong>Armas (SK/HG):</strong> <img src="img/Smelting.webp" class="item-icon"><strong>Smelting</strong> (Nivel 42/48)</li>
-                <li><strong>Armas (WK/SB):</strong> <img src="img/Smelting.webp" class="item-icon"><strong>Smelting</strong> (Nivel 44/50)</li>
-                <li><strong>Clases Rango:</strong> <img src="img/Artisanry.webp" class="item-icon"><strong>Artisanry</strong> (Nivel 45/50)</li>
-                <li><strong>Charms:</strong> <img src="img/Weaving.webp" class="item-icon"><strong>Weaving</strong> (Nivel 45/51)</li>
-                <li><strong>Boots:</strong> <img src="img/Weaving.webp" class="item-icon"><strong>Weaving</strong> (Agi/Int) o <img src="img/Smelting.webp" class="item-icon"><strong>Smelting</strong> (Str).</li>
+                <li><strong>Armas (SK/HG):</strong> <img src="img/Smelting.webp" class="item-icon"><strong>Smelting</strong> (Nivel 42 / 48)</li>
+                <li><strong>Armas (WK/SB):</strong> <img src="img/Smelting.webp" class="item-icon"><strong>Smelting</strong> (Nivel 44 / 50)</li>
+                <li><strong>Clases Rango:</strong> <img src="img/Artisanry.webp" class="item-icon"><strong>Artisanry</strong> (Nivel 45 / 50)</li>
+                <li><strong>Charms:</strong> <img src="img/Weaving.webp" class="item-icon"><strong>Weaving</strong> (Nivel 45 / 51)</li>
+                <li><strong>Boots:</strong> <img src="img/Weaving.webp" class="item-icon"><strong>Weaving</strong> (Agi/Int: 43 / 49) o <img src="img/Smelting.webp" class="item-icon"><strong>Smelting</strong> (Str: 41 / 47).</li>
             </ul>
         </section>
 
@@ -356,13 +552,15 @@
             <h2><img src="img/Tokiwa Grass.webp" alt="">Guía de Conversión</h2>
             <div class="conversion-table">
                 • 1 Starforge Potion = 1 <img src="img/Tokiwa Grass.webp" class="item-icon"><strong>Tokiwa Grass</strong> + 10 Focus<br>
-                • <strong>T1 > T2:</strong> 1 Potion + 2 T1 Crystals<br>
-                • <strong>T2 > T3:</strong> 3 Potions + 2 T2 Crystals
+                • 1 S1 Potion = 1 <img src="img/Tokiwa Grass.webp" class="item-icon">Tokiwa Grass<br>
+                • <strong>T1 > T2:</strong> 1 Potion + 2 T1 Crystals = 1 T2 Crystal<br>
+                • <strong>T2 > T3:</strong> 3 Potions + 2 T2 Crystals = 1 T3 Crystal
             </div>
             <h3>Materiales Universales</h3>
             <ul>
-                <li><strong>Purple Imagine:</strong> 5x Purple Universal Mats (Total 30 Grass para T0-T5).</li>
-                <li><strong>NPC Legendary Imagine:</strong> 10x Legendary Universal Mats (Total 300 Grass para T0-T5).</li>
+                <li><strong>Purple Imagine:</strong> 1 Potion + 1 Purple S1 Mat = 1 Universal Mat (30 Grass total para T0-T5).</li>
+                <li><strong>NPC Legendary:</strong> 5 Potions + 1 Legend S1 Mat = 1 Universal Mat (300 Grass total para T0-T5).</li>
+                <li><strong>Timegate:</strong> Algunos nodos Tier 2 están bloqueados hasta Master 1.</li>
             </ul>
         </section>
 
@@ -370,9 +568,9 @@
         <section class="section-card">
             <h2>Limpieza de Inventario</h2>
             <ul>
-                <li><strong>Vender/Tirar:</strong> Pociones/Serums S1, Raw Materials de Botany/Mineralogy/Gemology, Reforge Stones (40-80), Purple Imagine Wills.</li>
-                <li><strong>Mercado:</strong> Restricciones cambian de 30 a 90 días. Los <img src="img/Libros.webp" class="item-icon"><strong>Class Books</strong> podrían bajar de precio el 15 de enero.</li>
-                <li><strong>Wound Piggy:</strong> Es bueno en S2 para curación de grupo y saltar fases en Dungeons.</li>
+                <li><strong>Abre antes de S2:</strong> Todas las cajas de Gear (40-80), Shards, Pociones y Serums.</li>
+                <li><strong>Vender/Tirar:</strong> Raw Materials (Botany, Gemology, etc.), Reforge Stones (40-80), Gems (o guarda para Guild Cargo).</li>
+                <li><strong>Mercado:</strong> Restricciones cambian de 30 a 90 días. Los <img src="img/Libros.webp" class="item-icon"><strong>Class Books</strong> podrían bajar de precio tras el 15 de enero.</li>
             </ul>
         </section>
 
@@ -380,16 +578,422 @@
         <section class="section-card">
             <h2>Tips Misceláneos</h2>
             <ul>
-                <li>Guarda <strong>Wish Coins</strong> para Rorola y <strong>Bound Rose Orbs</strong> para S2 Gold Imagine Mats.</li>
-                <li><strong>Hard/Master Mode:</strong> Probabilidad garantizada de 1x legendary (3x con Cheer-Up Treat).</li>
-                <li><strong>Presets:</strong> Hasta 10 disponibles. Permiten cambiar Clase, Skills, Talents, Modules, Imagines y Gear.</li>
+                <li><strong>Monedas:</strong> Guarda <strong>Will Wish Coins</strong> (meta: Rorola T3). Usa <strong>Bound Rose Orbs</strong> para materiales dorados S2 en la Mystery Store.</li>
+                <li><strong>Loot:</strong> Hard/Master garantiza 1x Legendary Gear. Usa <strong>Cheer-Up Treat</strong> para obtener 3x.</li>
+                <li><strong>Presets:</strong> 3 gratuitos (hasta 10 con Unbound Rose Orbs). Guardan Clase, Skills, Talents, Modules, Imagines y Gear. (NO Emblemas).</li>
+                <li><strong>Reset:</strong> Usa tus Class Books antes del 15 de Enero para el evento de Reset.</li>
                 <li><strong>Shadow Hunter Set:</strong> Se obtiene farmeando materiales garantizados en S2.</li>
                 <li><strong>Aprende Mahjong.</strong> </li>
             </ul>
         </section>
+
+        <!-- SECCIÓN DE NPC IMAGINES (MOVIDA) -->
+        <div class="imagines-section" id="npc-imagines-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2 style="border:none; margin:0;">NPC Imagines</h2>
+                <div class="switch-wrapper">
+                    <span>Simplificado</span>
+                    <label class="switch">
+                        <input type="checkbox" id="modeToggleNPC" onchange="toggleMode('modeToggleNPC')">
+                        <span class="slider"></span>
+                    </label>
+                    <span>Extendido</span>
+                </div>
+            </div>
+            <div class="imagines-header">
+                <div class="tabs-container">
+                    <button class="tab-btn active" onclick="showImagine('boyce', this)">Boyce</button>
+                    <button class="tab-btn" onclick="showImagine('dorothy', this)">Dorothy</button>
+                    <button class="tab-btn" onclick="showImagine('fafala', this)">Fafala</button>
+                    <button class="tab-btn" onclick="showImagine('rorola', this)">Rorola</button>
+                </div>
+            </div>
+
+            <!-- Boyce -->
+            <div id="boyce" class="imagine-display active">
+                <div class="imagine-info">
+                    <div class="info-block">
+                        <span class="info-title">Efecto Activo: Frost Zone</span>
+                        <div class="simplified-content">
+                            Invoca a Boyce para crear una zona de escarcha que inflige daño mágico de hielo. Aumenta tu ATK y, con ataques especiales, aumenta la velocidad de ataque y casteo.
+                        </div>
+                        <div class="extended-content">
+                            Invoca a Boyce, reuniendo el poder de la escarcha para crear una zona que inflige daño mágico de hielo. Tras el casteo, el ATK aumenta, con incrementos adicionales por cada ataque especial (hasta 5 veces). Al máximo de acumulaciones, otorga bonos de velocidad de ataque y casteo. Los ataques especiales extienden la duración. (2 cargas).
+                            <div class="stat-grid">
+                                <div class="stat-item"><strong>Daño Total:</strong> 1050% - 1837.5%</div>
+                                <div class="stat-item"><strong>Aumento ATK:</strong> 8% - 16%</div>
+                                <div class="stat-item"><strong>Vel. Ataque:</strong> 5% - 10%</div>
+                                <div class="stat-item"><strong>Cooldown:</strong> 120s - 80s</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-title">Efecto Pasivo</span>
+                        <div class="simplified-content">
+                            Aumento de Fuerza, Intelecto y Agilidad.
+                        </div>
+                        <div class="extended-content">
+                            STR +6/11.4/15%, INT +6/11.4/15%, AGI +6/11.4/15%.
+                        </div>
+                    </div>
+                </div>
+                <div class="imagine-image-box">
+                    <img src="img/Boyce.webp" alt="Boyce">
+                </div>
+            </div>
+
+            <!-- Dorothy -->
+            <div id="dorothy" class="imagine-display">
+                <div class="imagine-info">
+                    <div class="info-block">
+                        <span class="info-title">Transformación: Craftsman's Power</span>
+                        <div class="simplified-content">
+                            Te transforma en Dorothy, cambiando tus habilidades por completo. Convierte tus stats básicos en daño puro y vida.
+                        </div>
+                        <div class="extended-content">
+                            Transformación completa con un set de 4 habilidades únicas. Convierte cada 2 puntos de STR/INT/AGI en 1 de Daño de Ataque, y cada 1 de END en 8 de Vida Máxima. El Haste se convierte en velocidad de ataque/casteo.
+                            <br><br>
+                            <strong>Habilidades:</strong> 1. Disparo Cargado (Físico), 2. Proyectil de Tormenta (Área + Lentitud), 3. Rayos Teledirigidos (Parálisis), 4. Proyectil de Aniquilación (Gran explosión).
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-title">Efecto Pasivo</span>
+                        <div class="simplified-content">
+                            Aumento de stats y probabilidad de activar cadena de rayos al atacar.
+                        </div>
+                        <div class="extended-content">
+                            STR/INT/AGI +6/15%. Pasivo: 40% de probabilidad de activar "Lightning Chain" (1000% ATK) al infligir daño.
+                        </div>
+                    </div>
+                </div>
+                <div class="imagine-image-box">
+                    <img src="img/Dorothy.webp" alt="Dorothy">
+                </div>
+            </div>
+
+            <!-- Fafala -->
+            <div id="fafala" class="imagine-display">
+                <div class="imagine-info">
+                    <div class="info-block">
+                        <span class="info-title">Dominio: Defensa Absoluta</span>
+                        <div class="simplified-content">
+                            Crea un dominio que otorga reducción de daño final y Super Armor a ti y a tus aliados. Infliges daño adicional basado en tu defensa física.
+                        </div>
+                        <div class="extended-content">
+                            Crea un dominio de 15s. Aliados ganan reducción de daño (15-30%) y Super Armor. Al infligir daño, sumas un 200-400% de tu DEF física como daño adicional. Recibir daño reduce el CD de tu habilidad de Resonance actual en 1s.
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-title">Efecto Pasivo</span>
+                        <div class="simplified-content">
+                            Aumento masivo de Fuerza, Intelecto y Agilidad.
+                        </div>
+                        <div class="extended-content">
+                            STR +6/11.4/15%, INT +6/11.4/15%, AGI +6/11.4/15%.
+                        </div>
+                    </div>
+                </div>
+                <div class="imagine-image-box">
+                    <img src="img/Fafala.webp" alt="Fafala">
+                </div>
+            </div>
+
+            <!-- Rorola -->
+            <div id="rorola" class="imagine-display">
+                <div class="imagine-info">
+                    <div class="info-block">
+                        <span class="info-title">Ancestral Power & Lifesteal</span>
+                        <div class="simplified-content">
+                            Aumenta drásticamente el daño infligido a los objetivos y otorga robo de vida (Lifesteal) durante el efecto.
+                        </div>
+                        <div class="extended-content">
+                            Aumenta el daño base (10-20%) y otorga bonos adicionales cada 10 golpes (hasta 5 veces). Al máximo de cargas, extiende la duración del bono y otorga Lifesteal (1% del daño infligido). Muy potente para sostener daño y vida.
+                            <div class="stat-grid">
+                                <div class="stat-item"><strong>Daño Total:</strong> 1500% - 2624.9%</div>
+                                <div class="stat-item"><strong>Aumento Daño:</strong> 10% - 20%</div>
+                                <div class="stat-item"><strong>Lifesteal:</strong> 1%</div>
+                                <div class="stat-item"><strong>Cooldown:</strong> 120s - 80s</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-title">Efecto Pasivo</span>
+                        <div class="simplified-content">
+                            Bonificación equilibrada de stats principales.
+                        </div>
+                        <div class="extended-content">
+                            STR +6/11.4/15%, INT +6/11.4/15%, AGI +6/11.4/15%.
+                        </div>
+                    </div>
+                </div>
+                <div class="imagine-image-box">
+                    <img src="img/Rorola.webp" alt="Rorola">
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE LEGENDARY IMAGINES (MOVIDA ABAJO) -->
+        <div class="imagines-section" id="legendary-imagines-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2 style="border:none; margin:0;">Legendary Imagines</h2>
+                <div class="switch-wrapper">
+                    <span>Simplificado</span>
+                    <label class="switch">
+                        <input type="checkbox" id="modeToggleLeg" onchange="toggleMode('modeToggleLeg')">
+                        <span class="slider"></span>
+                    </label>
+                    <span>Extendido</span>
+                </div>
+            </div>
+            <div class="imagines-header">
+                <div class="tabs-container">
+                    <button class="tab-btn active" onclick="showImagine('basilisk', this)">Basilisk</button>
+                    <button class="tab-btn" onclick="showImagine('blackrock', this)">Blackrock</button>
+                    <button class="tab-btn" onclick="showImagine('goblin', this)">Goblin</button>
+                    <button class="tab-btn" onclick="showImagine('cabbage', this)">Cabbage</button>
+                    <button class="tab-btn" onclick="showImagine('earthfox', this)">Earth Fox</button>
+                    <button class="tab-btn" onclick="showImagine('flamehorn', this)">Flamehorn</button>
+                </div>
+            </div>
+
+            <!-- Basilisk -->
+            <div id="basilisk" class="imagine-display active">
+                <div class="imagine-info">
+                    <div class="info-block">
+                        <span class="info-title">Efecto Activo: Elemental Buffs</span>
+                        <div class="simplified-content">
+                            Invoca al Basilisk, que gira y ataca al objetivo. Otorga buffs de todos los elementos a ti y hasta 10 aliados cercanos por un tiempo.
+                        </div>
+                        <div class="extended-content">
+                            Invoca al Basilisk, quien gira y ataca al objetivo, infligiendo daño físico. Tras la activación, otorga buffs de todos los elementos a ti y hasta 10 aliados cercanos (priorizando aliados) por un periodo. [No afectado por efectos similares por 60s].
+                            <div class="stat-grid">
+                                <div class="stat-item"><strong>Daño Total:</strong> 1500/2175/2625% + 150</div>
+                                <div class="stat-item"><strong>Toughness Break:</strong> 96</div>
+                                <div class="stat-item"><strong>Elemental Bonus:</strong> 5/8/10%</div>
+                                <div class="stat-item"><strong>Duración:</strong> 10s</div>
+                                <div class="stat-item"><strong>Cooldown:</strong> 120/100/80s</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-title">Efecto Pasivo</span>
+                        <div class="simplified-content">
+                            Aumento de Fuerza, Intelecto y Agilidad.
+                        </div>
+                        <div class="extended-content">
+                            STR +6/11.4/15%, INT +6/11.4/15%, AGI +6/11.4/15%.
+                        </div>
+                    </div>
+                </div>
+                <div class="imagine-image-box">
+                    <img src="img/Basilisk.webp" alt="Basilisk">
+                </div>
+            </div>
+
+            <!-- Blackrock Legion Captain -->
+            <div id="blackrock" class="imagine-display">
+                <div class="imagine-info">
+                    <div class="info-block">
+                        <span class="info-title">Efecto Activo: Massive Firestorm</span>
+                        <div class="simplified-content">
+                            Invoca al Capitán de la Legión Blackrock, quien desata una tormenta de fuego masiva. Aumenta la velocidad de ataque y casteo.
+                        </div>
+                        <div class="extended-content">
+                            Invoca al Capitán, quien desata una tormenta de fuego masiva a su alrededor, infligiendo daño físico de fuego. Tras el casteo, tu velocidad de ataque y casteo aumentan por un periodo.
+                            <div class="stat-grid">
+                                <div class="stat-item"><strong>Daño Total:</strong> 1500/2175/2625% + 150</div>
+                                <div class="stat-item"><strong>Toughness Break:</strong> 100</div>
+                                <div class="stat-item"><strong>Vel. Ataque:</strong> +10/16/20%</div>
+                                <div class="stat-item"><strong>Vel. Casteo:</strong> +30/48/60%</div>
+                                <div class="stat-item"><strong>Duración:</strong> 20s</div>
+                                <div class="stat-item"><strong>Cooldown:</strong> 120/100/80s</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-title">Efecto Pasivo</span>
+                        <div class="simplified-content">
+                            Aumento de la velocidad de cooldown de la habilidad definitiva (Ultimate).
+                        </div>
+                        <div class="extended-content">
+                            Ultimate skill cooldown speed +13/24.7/32.5%.
+                        </div>
+                    </div>
+                </div>
+                <div class="imagine-image-box">
+                    <img src="img/Blackrock Legion Captain.webp" alt="Blackrock Legion Captain">
+                </div>
+            </div>
+
+            <!-- Goblin Leader -->
+            <div id="goblin" class="imagine-display">
+                <div class="imagine-info">
+                    <div class="info-block">
+                        <span class="info-title">Efecto Activo: Sword Beam</span>
+                        <div class="simplified-content">
+                            Lanza un haz de espada hacia adelante. Aumenta el daño y curación de habilidades de Expertise y reduce el cooldown de Resonance.
+                        </div>
+                        <div class="extended-content">
+                            Invoca al Goblin Leader, quien carga brevemente antes de lanzar un haz de espada. Tras la activación, el daño y curación de habilidades de Expertise aumentan. Durante este periodo, el daño de Expertise reduce el CD de la habilidad de Resonance actual en 0.3s (máx 1 vez por seg).
+                            <div class="stat-grid">
+                                <div class="stat-item"><strong>Daño Total:</strong> 1500/2175/2625% + 150</div>
+                                <div class="stat-item"><strong>Toughness Break:</strong> 100</div>
+                                <div class="stat-item"><strong>Expertise Bonus:</strong> +22/35.2/44%</div>
+                                <div class="stat-item"><strong>Duración:</strong> 20s</div>
+                                <div class="stat-item"><strong>Cooldown:</strong> 120/100/80s</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-title">Efecto Pasivo</span>
+                        <div class="simplified-content">
+                            Aumento de daño y curación de habilidades de Expertise.
+                        </div>
+                        <div class="extended-content">
+                            Expertise Skill Damage and Healing +9/17.1/22.5%.
+                        </div>
+                    </div>
+                </div>
+                <div class="imagine-image-box">
+                    <img src="img/Goblin Leader.webp" alt="Goblin Leader">
+                </div>
+            </div>
+
+            <!-- Genius Cabbage King -->
+            <div id="cabbage" class="imagine-display">
+                <div class="imagine-info">
+                    <div class="info-block">
+                        <span class="info-title">Efecto Activo: Slam & Passive Boost</span>
+                        <div class="simplified-content">
+                            Golpea el suelo infligiendo daño físico. Bloquea tu efecto pasivo aleatorio y aumenta su potencia significativamente.
+                        </div>
+                        <div class="extended-content">
+                            Invoca al Rey Repollo Genio, quien golpea el suelo tras una breve carga. Tras la activación, tu efecto pasivo permanecerá bloqueado basado en el marcador mostrado y su efecto aumentará en 100%~150%.
+                            <div class="stat-grid">
+                                <div class="stat-item"><strong>Daño Total:</strong> 1500/2175/2625% + 150</div>
+                                <div class="stat-item"><strong>Toughness Break:</strong> 100</div>
+                                <div class="stat-item"><strong>Cooldown:</strong> 120/100/80s</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-title">Efecto Pasivo: Ciclo de Stats</span>
+                        <div class="simplified-content">
+                            Aumento de stats básicos y cada 10s gana un bono aleatorio de Versatility, Mastery, Haste o Daño Elemental.
+                        </div>
+                        <div class="extended-content">
+                            STR/INT/AGI +3/5.7/7.5%. Cada 10s en combate, gana aleatoriamente: STR/INT/AGI +3/5.7/7.5%, Versatility +550/1045/1375, Mastery +3/5.7/7.5%, Haste +3/5.7/7.5% o Daño Elemental +2.25/4.26/5.6%. Los valores fijos escalan con el nivel de temporada.
+                        </div>
+                    </div>
+                </div>
+                <div class="imagine-image-box">
+                    <img src="img/Genius Cabbage King.webp" alt="Genius Cabbage King">
+                </div>
+            </div>
+
+            <!-- Crimson Jade Earth Fox -->
+            <div id="earthfox" class="imagine-display">
+                <div class="imagine-info">
+                    <div class="info-block">
+                        <span class="info-title">Efecto Activo: Pet Power</span>
+                        <div class="simplified-content">
+                            Se abalanza sobre el objetivo. Aumenta drásticamente el daño final de tu mascota por un periodo.
+                        </div>
+                        <div class="extended-content">
+                            Invoca al Crimson Jade Earth Fox, que se abalanza sobre el objetivo infligiendo daño físico. Tras la activación, el daño final de tu mascota aumenta.
+                            <div class="stat-grid">
+                                <div class="stat-item"><strong>Daño Total:</strong> 1500/2175/2625% + 150</div>
+                                <div class="stat-item"><strong>Toughness Break:</strong> 100</div>
+                                <div class="stat-item"><strong>Pet Damage:</strong> +20/32/40%</div>
+                                <div class="stat-item"><strong>Duración:</strong> 20s</div>
+                                <div class="stat-item"><strong>Cooldown:</strong> 120/100/80s</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-title">Efecto Pasivo</span>
+                        <div class="simplified-content">
+                            Los ataques especiales aumentan el poder de ataque de la mascota (acumulable).
+                        </div>
+                        <div class="extended-content">
+                            Tras cada ataque especial, ATK de mascota +2.4/4.56/6% por 5s, acumulable hasta 5 veces.
+                        </div>
+                    </div>
+                </div>
+                <div class="imagine-image-box">
+                    <img src="img/Crimson Jade Earth Fox.webp" alt="Crimson Jade Earth Fox">
+                </div>
+            </div>
+
+            <!-- Flamehorn -->
+            <div id="flamehorn" class="imagine-display">
+                <div class="imagine-info">
+                    <div class="info-block">
+                        <span class="info-title">Efecto Activo: Luck & Explosions</span>
+                        <div class="simplified-content">
+                            Embestidas continuas. Otorga efecto de Suerte: los Lucky Strikes causan explosiones mágicas y reduce el cooldown de Absolute Luck.
+                        </div>
+                        <div class="extended-content">
+                            Invoca a Flamehorn para embestir repetidamente. Gana efecto de Luck: al activar Lucky Strike ocurre una explosión (50-87.5% ATK). Gana Absolute Luck inmediatamente y su cooldown se reduce a 5s durante el efecto.
+                            <div class="stat-grid">
+                                <div class="stat-item"><strong>Daño Total:</strong> 1500/2175/2625% + 150</div>
+                                <div class="stat-item"><strong>Toughness Penetration:</strong> 100</div>
+                                <div class="stat-item"><strong>Cooldown:</strong> 120/100/80s</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-title">Efecto Pasivo: Absolute Luck</span>
+                        <div class="simplified-content">
+                            Cada 15s gana Luck masivo y bono de daño/curación de Lucky Strike para tus próximas 3 habilidades de especialización.
+                        </div>
+                        <div class="extended-content">
+                            Cada 15s gana "Absolute Luck": Luck +500/950/1250, daño/curación de Lucky Strike +8/15.2/20%. Se elimina tras 3 habilidades de especialización. El Luck escala con el nivel de temporada.
+                        </div>
+                    </div>
+                </div>
+                <div class="imagine-image-box">
+                    <img src="img/Flamehorn.webp" alt="Flamehorn">
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
+        function showImagine(id, btn) {
+            // Encontrar el contenedor padre (sección) para solo afectar a sus hijos
+            const section = btn.closest('.imagines-section');
+            
+            // Ocultar todos los displays DENTRO de esta sección
+            section.querySelectorAll('.imagine-display').forEach(el => el.classList.remove('active'));
+            // Desactivar todos los botones DENTRO de esta sección
+            section.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            // Mostrar el seleccionado
+            document.getElementById(id).classList.add('active');
+            // Activar botón
+            btn.classList.add('active');
+        }
+
+        function toggleMode(toggleId) {
+            const isExtended = document.getElementById(toggleId).checked;
+            
+            // Sincronizar ambos switches si es necesario, o dejar que uno controle todo el body como antes
+            // Para mantener la consistencia, haré que ambos switches controlen el estado global del body
+            // y se mantengan sincronizados visualmente.
+            const switches = ['modeToggleNPC', 'modeToggleLeg'];
+            switches.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.checked = isExtended;
+            });
+
+            if (isExtended) {
+                document.body.classList.add('extended-mode');
+            } else {
+                document.body.classList.remove('extended-mode');
+            }
+        }
+
         function updateTimer() {
             // 1. Definir la fecha objetivo en GMT-8 (PST)
             // 15 de enero de 2026, 20:00:00 GMT-8
