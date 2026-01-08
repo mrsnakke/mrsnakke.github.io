@@ -317,49 +317,94 @@
 
         /* IMAGINES SECTION STYLES */
         .imagines-section {
-            background: var(--card-bg);
-            border: 1px solid rgba(0, 242, 255, 0.2);
+            background: linear-gradient(135deg, rgba(15, 15, 30, 0.7), rgba(20, 25, 40, 0.7));
+            border: 2px solid rgba(0, 242, 255, 0.2);
             border-radius: 16px;
-            padding: 25px;
+            padding: 35px;
             margin-bottom: 30px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(0, 242, 255, 0.1);
+        }
+
+        .imagines-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
         }
 
         .imagines-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
             gap: 15px;
+            position: relative;
+            z-index: 1;
         }
 
         .tabs-container {
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
-            background: rgba(0, 242, 255, 0.1);
-            border: 1px solid var(--neon-blue);
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.08), rgba(0, 150, 200, 0.05));
+            border: 2px solid rgba(0, 242, 255, 0.3);
             color: var(--neon-blue);
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 10px 24px;
+            border-radius: 25px;
             cursor: pointer;
             font-family: 'Orbitron', sans-serif;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(0, 242, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 242, 255, 0.6);
+            box-shadow: 0 6px 20px rgba(0, 242, 255, 0.15);
         }
 
         .tab-btn.active {
-            background: var(--neon-blue);
+            background: linear-gradient(135deg, var(--neon-blue), #00d9ff);
             color: #000;
-            box-shadow: 0 0 15px var(--accent-glow);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            font-weight: 700;
         }
 
-        .tab-btn:hover:not(.active) {
-            background: rgba(0, 242, 255, 0.2);
+        .tab-btn.active::before {
+            transform: translateX(100%);
+        }
+
+        .tab-btn:hover:not(.active)::before {
+            transform: translateX(0);
         }
 
         /* Switch Styles */
@@ -421,8 +466,10 @@
         .imagine-display {
             display: none;
             grid-template-columns: 1.6fr 1fr;
+            grid-template-rows: auto 1fr;
             gap: 30px;
             animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
         .imagine-display.active {
@@ -432,6 +479,25 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateX(20px); }
             to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Imagine Name Title - Prominente */
+        .imagine-name-title {
+            grid-column: 1 / -1;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--neon-blue), #00d9ff, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-align: center;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.2));
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .imagine-info {
@@ -444,10 +510,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.05), rgba(0, 150, 200, 0.08));
             border-radius: 20px;
             padding: 20px;
-            border: 1px solid rgba(0, 242, 255, 0.1);
+            border: 2px solid rgba(0, 242, 255, 0.25);
+            box-shadow: inset 0 0 20px rgba(0, 242, 255, 0.1), 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .imagine-image-box:hover {
+            border-color: rgba(0, 242, 255, 0.5);
+            box-shadow: inset 0 0 30px rgba(0, 242, 255, 0.15), 0 15px 40px rgba(0, 242, 255, 0.1);
         }
 
         .imagine-image-box img {
@@ -460,38 +533,89 @@
         }
 
         .imagine-image-box img:hover {
-            transform: scale(1.03) rotate(1deg);
+            transform: scale(1.05) rotate(0deg);
+            box-shadow: 0 0 35px rgba(0, 242, 255, 0.6);
         }
 
         .info-block {
-            background: rgba(20, 20, 30, 0.6);
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid var(--neon-blue);
-            box-shadow: 4px 4px 15px rgba(0,0,0,0.3);
-            font-family: 'Inter', sans-serif; /* Mas legible */
-            line-height: 1.5;
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.8), rgba(15, 25, 45, 0.8));
+            padding: 24px;
+            border-radius: 14px;
+            border-left: 5px solid var(--neon-blue);
+            border-top: 1px solid rgba(0, 242, 255, 0.2);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(0, 242, 255, 0.1);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.3), transparent);
+        }
+
+        .info-block:hover {
+            border-left-color: #00d9ff;
+            transform: translateX(4px);
+            box-shadow: 0 12px 32px rgba(0, 242, 255, 0.2), inset 0 1px 0 rgba(0, 242, 255, 0.15);
         }
 
         .info-title {
             color: var(--neon-blue);
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 12px;
-            display: block;
-            border-bottom: 1px solid rgba(0, 242, 255, 0.1);
-            padding-bottom: 8px;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid rgba(0, 242, 255, 0.2);
+            padding-bottom: 10px;
+            gap: 10px;
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Icono para Efecto Activo */
+        .info-block:nth-child(1) .info-title::before {
+            content: '⚡';
+            font-size: 1.2rem;
+            filter: drop-shadow(0 0 5px var(--neon-blue));
+        }
+
+        /* Icono para Efecto Pasivo */
+        .info-block:nth-child(2) .info-title::before {
+            content: '✦';
+            font-size: 1.2rem;
+            filter: drop-shadow(0 0 5px rgba(0, 242, 255, 0.8));
         }
 
         .simplified-content {
             display: block;
-            color: #eee;
+            color: #d8d8d8;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
         }
 
         .extended-content {
             display: none;
+            color: #ccc;
+            font-size: 0.93rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
         }
 
         body.extended-mode .simplified-content {
@@ -504,18 +628,40 @@
 
         .stat-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 242, 255, 0.15);
+            position: relative;
+            z-index: 1;
         }
 
         .stat-item {
-            font-size: 0.85rem;
-            color: #bbb;
+            font-size: 0.87rem;
+            color: #b8c5d6;
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.05), rgba(0, 150, 200, 0.03));
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid rgba(0, 242, 255, 0.4);
+            transition: all 0.3s ease;
+            line-height: 1.5;
+        }
+
+        .stat-item:hover {
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.12), rgba(0, 150, 200, 0.08));
+            border-left-color: var(--neon-blue);
+            transform: translateX(3px);
+            box-shadow: 0 4px 12px rgba(0, 242, 255, 0.1);
         }
 
         .stat-item strong {
-            color: var(--neon-blue);
+            color: #00f2ff;
+            font-weight: 600;
+            display: block;
+            font-size: 0.92rem;
+            margin-bottom: 2px;
+            letter-spacing: 0.5px;
         }
 
         /* Responsive */
@@ -600,7 +746,7 @@
 
         <!-- SECCIÓN 2: LO QUE SE VUELVE INÚTIL -->
         <section class="section-card important-note">
-            <h2><img src="img/Dream Strength.png" alt="">Advertencias: Gear Obsoleto</h2>
+            <h2><img src="img/Dream Strength.png" alt="">Gear Obsoleto</h2>
             <ul>
                 <li><strong>Gear Nivel 80/90:</strong> No obtiene <img src="img/Dream Strength.png" class="item-icon"><span class="item-name rarity-legendary">Dream Strength</span> (stat vital para el daño significativo en S2).</li>
                 <li><strong>Materiales S1:</strong> <span class="item-name rarity-epic">Reforge Stones</span> y <span class="item-name rarity-uncommon">Alloy Shards</span> de S1 no se pueden convertir. Úsalos ahora o guárdalos para Guild Cargo.</li>
@@ -692,6 +838,7 @@
 
             <!-- Boyce -->
             <div id="boyce" class="imagine-display active">
+                <div class="imagine-name-title">Boyce</div>
                 <div class="imagine-info">
                     <div class="info-block">
                         <span class="info-title">Efecto Activo: Frost Zone</span>
@@ -725,6 +872,7 @@
 
             <!-- Dorothy -->
             <div id="dorothy" class="imagine-display">
+                <div class="imagine-name-title">Dorothy</div>
                 <div class="imagine-info">
                     <div class="info-block">
                         <span class="info-title">Transformación: Craftsman's Power</span>
@@ -754,6 +902,7 @@
 
             <!-- Fafala -->
             <div id="fafala" class="imagine-display">
+                <div class="imagine-name-title">Fafala</div>
                 <div class="imagine-info">
                     <div class="info-block">
                         <span class="info-title">Dominio: Defensa Absoluta</span>
@@ -781,6 +930,7 @@
 
             <!-- Rorola -->
             <div id="rorola" class="imagine-display">
+                <div class="imagine-name-title">Rorola</div>
                 <div class="imagine-info">
                     <div class="info-block">
                         <span class="info-title">Ancestral Power & Lifesteal</span>
@@ -839,6 +989,7 @@
 
             <!-- Basilisk -->
             <div id="basilisk" class="imagine-display active">
+                <div class="imagine-name-title">Basilisk</div>
                 <div class="imagine-info">
                     <div class="info-block">
                         <span class="info-title">Efecto Activo: Elemental Buffs</span>
@@ -873,6 +1024,7 @@
 
             <!-- Blackrock Legion Captain -->
             <div id="blackrock" class="imagine-display">
+                <div class="imagine-name-title">Blackrock Legion Captain</div>
                 <div class="imagine-info">
                     <div class="info-block">
                         <span class="info-title">Efecto Activo: Massive Firestorm</span>
@@ -908,6 +1060,7 @@
 
             <!-- Goblin Leader -->
             <div id="goblin" class="imagine-display">
+                <div class="imagine-name-title">Goblin Leader</div>
                 <div class="imagine-info">
                     <div class="info-block">
                         <span class="info-title">Efecto Activo: Sword Beam</span>
@@ -942,6 +1095,7 @@
 
             <!-- Genius Cabbage King -->
             <div id="cabbage" class="imagine-display">
+                <div class="imagine-name-title">Genius Cabbage King</div>
                 <div class="imagine-info">
                     <div class="info-block">
                         <span class="info-title">Efecto Activo: Slam & Passive Boost</span>
@@ -974,6 +1128,7 @@
 
             <!-- Crimson Jade Earth Fox -->
             <div id="earthfox" class="imagine-display">
+                <div class="imagine-name-title">Crimson Jade Earth Fox</div>
                 <div class="imagine-info">
                     <div class="info-block">
                         <span class="info-title">Efecto Activo: Pet Power</span>
@@ -1008,6 +1163,7 @@
 
             <!-- Flamehorn -->
             <div id="flamehorn" class="imagine-display">
+                <div class="imagine-name-title">Flamehorn</div>
                 <div class="imagine-info">
                     <div class="info-block">
                         <span class="info-title">Efecto Activo: Luck & Explosions</span>
