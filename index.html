@@ -3,137 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Season 2 Timer Overlay</title>
+    <title>Season 2 Countdown & Guide</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --neon-blue: #00f2ff;
-            --tech-bg: rgba(0, 0, 0, 0.7);
+            --tech-bg: rgba(10, 10, 15, 0.95);
+            --card-bg: rgba(20, 20, 30, 0.8);
+            --accent-glow: rgba(0, 242, 255, 0.3);
+            --text-main: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
             margin: 0;
-            padding: 0;
-            background: transparent; /* Fondo transparente para OBS */
-            font-family: 'Orbitron', sans-serif;
-            color: rgb(255, 255, 255);
+            padding: 20px;
+            background: radial-gradient(circle at top, #1a1a2e 0%, #0f0f1a 100%);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .overlay-container {
+        /* TIMER STYLES */
+        .header-container {
             display: flex;
             align-items: center;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px 30px;
-            border-radius: 50px;
-            border: 2px solid #00f2ff;
-            box-shadow: 0 0 25px rgba(0, 242, 255, 0.5);
-            backdrop-filter: blur(8px);
-            position: relative;
+            background: var(--tech-bg);
+            padding: 20px 40px;
+            border-radius: 60px;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 30px var(--accent-glow);
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+            width: fit-content;
+            animation: pulse 4s infinite ease-in-out;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
+            50% { box-shadow: 0 0 40px rgba(0, 242, 255, 0.6); }
         }
 
         .image-container {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 3px solid #00f2ff;
+            border: 3px solid var(--neon-blue);
             overflow: hidden;
-            margin-right: 15px;
-            margin-left: -15px;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin-right: 25px;
+            box-shadow: 0 0 20px var(--accent-glow);
             flex-shrink: 0;
-            position: relative;
-            z-index: 1;
         }
 
         .image-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(1.2) contrast(1.1);
         }
 
         .text-container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding-right: 15px;
         }
 
         .season-text {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             text-transform: uppercase;
             letter-spacing: 4px;
-            color: #00f2ff;
+            color: var(--neon-blue);
             margin-bottom: 2px;
-            text-shadow: 0 0 12px #00f2ff;
             font-weight: 700;
+            text-shadow: 0 0 10px var(--neon-blue);
         }
 
         .subtitle-text {
             font-family: 'Roboto Mono', monospace;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #e0e0e0;
-            margin-bottom: 12px;
-            font-weight: 400;
-            text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+            color: #aaa;
+            margin-bottom: 8px;
         }
 
         .timer-text {
             font-family: 'Roboto Mono', monospace;
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            white-space: nowrap;
             color: #ffffff;
+            display: flex;
+            align-items: baseline;
         }
 
         .timer-unit {
-            font-size: 1rem;
-            margin-left: 5px;
-            margin-right: 15px;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-left: 4px;
+            margin-right: 12px;
+            color: var(--neon-blue);
             text-transform: lowercase;
             font-weight: 400;
+        }
+
+        /* CONTENT STYLES */
+        .content-wrapper {
+            max-width: 900px;
+            width: 100%;
+            display: grid;
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-left: 4px solid var(--neon-blue);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            background: rgba(30, 30, 45, 0.9);
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: '>>';
+            margin-right: 10px;
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+
+        .important-note {
+            background: rgba(255, 107, 107, 0.1);
+            border-left-color: #ff6b6b !important;
+        }
+
+        .important-note h2 {
+            color: #ff6b6b;
+            border-bottom-color: rgba(255, 107, 107, 0.2);
+        }
+
+        .important-note li::before {
+            color: #ff6b6b;
+        }
+
+        .conversion-table {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        strong {
+            color: #fff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 25px;
+                border-radius: 40px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .image-container {
+                margin-right: 0;
+                margin-bottom: 15px;
+                width: 80px;
+                height: 80px;
+            }
+            .timer-text {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="overlay-container">
+    <div class="header-container">
         <div class="image-container">
             <img src="T2.png" alt="T2">
         </div>
         <div class="text-container">
             <div class="season-text">Season 2</div>
             <div class="subtitle-text">Echoes of Lost Nightmares</div>
-            <div id="timer" class="timer-text">00<span class="timer-unit">d</span> 00<span class="timer-unit">h</span> 00<span class="timer-unit">m</span></div>
+            <div id="timer" class="timer-text">
+                00<span class="timer-unit">d</span> 
+                00<span class="timer-unit">h</span> 
+                00<span class="timer-unit">m</span>
+            </div>
         </div>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- SECCIÓN 1: MEJORAS QUE SE MANTIENEN -->
+        <section class="section-card">
+            <h2>Mejoras de Season 2</h2>
+            
+            <h3>Gear Refinement</h3>
+            <ul>
+                <li><strong>Refinamiento:</strong> Sube hasta nivel 30. (Niveles 21-30 usan <strong>Starforge Crystal T3</strong> + mystery metal).</li>
+                <li><strong>DPS:</strong> Mantén armadura +10/15 y ATK lo más alto posible.</li>
+                <li><strong>Conversión:</strong> Puedes convertir Starforge Crystals actuales. Requiere pociones fabricadas con <strong>Tokiwa Grass</strong> (1 Grass = 1 Potion).</li>
+            </ul>
+
+            <h3>Habilidades y Niveles</h3>
+            <ul>
+                <li><strong>Reset de Libros:</strong> Habrá un evento de reset de libros de clase.</li>
+                <li><strong>Deep Sleep Levels:</strong> Nuevo sistema de niveles aparte del Adventurer Level.</li>
+                <li><strong>Quests:</strong> Completa las de S1 ahora; algunas de S2 requieren progreso previo.</li>
+            </ul>
+
+            <h3>Imagines y Armas</h3>
+            <ul>
+                <li><strong>Imagines:</strong> Algunas clases reemplazan sus Imagines. <strong>Rorola</strong> es una opción muy fuerte para DPS.</li>
+                <li><strong>Ocean Weapon:</strong> Sigue siendo Best-in-Slot (BiS) durante toda la S2.</li>
+            </ul>
+        </section>
+
+        <!-- SECCIÓN 2: LO QUE SE VUELVE INÚTIL -->
+        <section class="section-card important-note">
+            <h2>Advertencias: Gear Obsoleto</h2>
+            <ul>
+                <li><strong>Gear Nivel 80/90:</strong> No obtiene <strong>Dream Strength</strong> (stat vital para el daño en S2).</li>
+                <li><strong>Materiales S1:</strong> Refinement Stones y Alloy Shards de S1 <strong>no se pueden convertir</strong>. Úsalos o deséchalos.</li>
+                <li><strong>Emblema S1:</strong> Se elimina al inicio de la temporada. Los Season 1 Points se pierden.</li>
+                <li><strong>Gemas:</strong> Inutilizables en gear de S2. Reemplazadas por el <strong>Imprint System</strong>.</li>
+            </ul>
+        </section>
+
+        <!-- SECCIÓN 3: LIFE SKILLS & CRAFTING -->
+        <section class="section-card">
+            <h2>Life Skills & Crafting</h2>
+            <ul>
+                <li><strong>Límite de Nivel:</strong> El nivel de Life Skills aumenta.</li>
+                <li><strong>Legendary Gear:</strong> Ahora pueden tener el <strong>Star Morado</strong>. Requieren Engram Crystal Shards.</li>
+                <li><strong>Prioridad de Crafteo:</strong> Arma Nivel 120 > Charm > Botas.</li>
+                <li><strong>Requisitos de Profesión:</strong>
+                    <ul>
+                        <li>Armas (SK/HG/WK/SB): Smelting (Niv. 42-50)</li>
+                        <li>Armas Rango: Artisanry (Niv. 45-50)</li>
+                        <li>Charm/Boots: Weaving (Niv. 41-51)</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- SECCIÓN 4: TOKIWA GRASS & CONVERSIÓN -->
+        <section class="section-card">
+            <h2>Guía de Conversión (Tokiwa Grass)</h2>
+            <div class="conversion-table">
+                • 1 Starforge Potion = 1 Tokiwa Grass + 10 Stamina<br>
+                • T1 > T2: 1 Potion + 2 T1 Crystals<br>
+                • T2 > T3: 3 Potions + 2 T2 Crystals
+            </div>
+            <h3>Uso de Materiales Universales</h3>
+            <ul>
+                <li>Cada <strong>Purple Imagine</strong> necesita 5x Purple Universal Mats (Total 30 Grass para T0-T5).</li>
+                <li>Cada <strong>NPC Legendary Imagine</strong> necesita 10x Legendary Universal Mats (Total 300 Grass para T0-T5).</li>
+            </ul>
+        </section>
+
+        <!-- SECCIÓN 5: TRADING & LIMPIEZA -->
+        <section class="section-card">
+            <h2>Limpieza de Inventario</h2>
+            <ul>
+                <li><strong>Vender/Tirar:</strong> Pociones/Serums de S1, Raw Materials de Botany/Mineralogy/Gemology, Reforge Stones (40-80), Purple Imagine Wills.</li>
+                <li><strong>Comprar:</strong> S1 Legendary Imagine Materials (si eres whale) y sobre todo <strong>Tokiwa Grass</strong>.</li>
+                <li><strong>Mercado:</strong> Las restricciones de comercio cambian de 30 a 90 días.</li>
+            </ul>
+        </section>
+
+        <!-- SECCIÓN 6: CONSEJOS FINALES -->
+        <section class="section-card">
+            <h2>Tips Misceláneos</h2>
+            <ul>
+                <li>Guarda <strong>Wish Coins</strong> para Rorola.</li>
+                <li>Usa <strong>Bound Rose Orbs</strong> para S2 Gold Imagine Mats.</li>
+                <li><strong>Presets:</strong> Se lanzan en S2 (puedes tener hasta 10). Permiten cambiar Clase, Skills, Gear e Imagines.</li>
+                <li><strong>Shadow Hunter Set:</strong> Ahora se obtiene farmeando materiales garantizados.</li>
+                <li><strong>Importante:</strong> ¡Aprende Mahjong!</li>
+            </ul>
+        </section>
     </div>
 
     <script>
         function updateTimer() {
-            // Fecha objetivo: 15 de enero de 2026, 20:00 (Hora local de la PC)
             const targetDate = new Date(2026, 0, 15, 20, 0, 0); 
-            
             const now = new Date();
             const timerElement = document.getElementById('timer');
-
             const diff = targetDate - now;
 
             if (diff <= 0) {
-                timerElement.innerHTML = "¡EVENTO INICIADO!";
+                timerElement.innerHTML = "¡TEMPORADA 2 INICIADA!";
                 return;
             }
 
@@ -147,8 +362,7 @@
                 `${minutes}<span class="timer-unit">m</span>`;
         }
 
-        // Actualizar cada segundo para que los minutos se sientan vivos
-        setInterval(updateTimer, 1000);
+        setInterval(updateTimer, 60000); // Actualizar cada minuto es suficiente y más eficiente
         updateTimer();
     </script>
 </body>
