@@ -206,14 +206,33 @@
             display: grid;
             grid-template-areas: 
                 "img name cd"
+                "img tags cd"
                 "img desc desc";
             grid-template-columns: auto 1fr auto;
-            gap: 10px;
+            gap: 5px 10px;
             background: rgba(0,0,0,0.3);
             padding: 12px;
             border-radius: 8px;
             border-left: 2px solid rgba(255,255,255,0.1);
             align-items: center;
+        }
+
+        .skill-tags {
+            grid-area: tags;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .skill-tag {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            padding: 1px 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.1);
+            color: #ddd;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .skill-img {
@@ -1084,24 +1103,28 @@
                         <div class="skill-item">
                             <img src="img/overclock wave.webp" alt="Overclock Wave" class="skill-img">
                             <span class="skill-name">Overclock Wave</span>
+                            <div class="skill-tags"><span class="skill-tag">Interrupción</span></div>
                             <span class="skill-cd">CD: 45s</span>
                             <span class="skill-desc">Libera una onda de energía, interrumpiendo a todos los objetivos en un radio de 5m.</span>
                         </div>
                         <div class="skill-item">
                             <img src="img/Unyielding Spirit.webp" alt="Unyielding Spirit" class="skill-img">
                             <span class="skill-name">Unyielding Spirit</span>
+                            <div class="skill-tags"><span class="skill-tag">Buff</span><span class="skill-tag">Protección</span></div>
                             <span class="skill-cd">CD: 80s</span>
                             <span class="skill-desc">Otorga un 35% de Resistencia adicional durante 5s. Puede almacenar hasta 2 cargas.</span>
                         </div>
                         <div class="skill-item">
                             <img src="img/Master of Stealth.webp" alt="Master of Stealth" class="skill-img">
                             <span class="skill-name">Master of Stealth</span>
+                            <div class="skill-tags"><span class="skill-tag">Agro</span><span class="skill-tag">Debuff</span></div>
                             <span class="skill-cd">CD: 30s</span>
                             <span class="skill-desc">Oculta la presencia del lanzador para evitar el Agro y limpia debuffs durante 10s.</span>
                         </div>
                         <div class="skill-item">
                             <img src="img/Energy Reflux.webp" alt="Energy Reflux" class="skill-img">
                             <span class="skill-name">Energy Reflux</span>
+                            <div class="skill-tags"><span class="skill-tag">Buff</span></div>
                             <span class="skill-cd">CD: 30s</span>
                             <span class="skill-desc">Recupera 50% de Estamina y aumenta la Vel. Movimiento 15% durante 5s.</span>
                         </div>
@@ -1113,24 +1136,28 @@
                         <div class="skill-item">
                             <img src="img/Overclock Explosion.webp" alt="Overclock Explosion" class="skill-img">
                             <span class="skill-name">Overclock Explosion</span>
+                            <div class="skill-tags"><span class="skill-tag">Agro</span></div>
                             <span class="skill-cd">CD: 15s</span>
                             <span class="skill-desc">Provoca (Taunt) al objetivo. Aumenta enormemente el Agro contra él durante 5s.</span>
                         </div>
                         <div class="skill-item">
                             <img src="img/Mocking Roar.webp" alt="Mocking Roar" class="skill-img">
                             <span class="skill-name">Mocking Roar</span>
+                            <div class="skill-tags"><span class="skill-tag">Interrupción</span><span class="skill-tag">Agro</span></div>
                             <span class="skill-cd">CD: 25s</span>
                             <span class="skill-desc">Interrumpe objetivos en un radio de 10m y los provoca. Aumenta Agro durante 10s.</span>
                         </div>
                         <div class="skill-item">
                             <img src="img/Adamant Will.webp" alt="Adamant Will" class="skill-img">
                             <span class="skill-name">Adamant Will</span>
+                            <div class="skill-tags"><span class="skill-tag">Buff</span><span class="skill-tag">Protección</span><span class="skill-tag">Super Armadura</span></div>
                             <span class="skill-cd">CD: 80s</span>
                             <span class="skill-desc">Otorga un 45% de Resistencia adicional y Super Armadura durante 10s.</span>
                         </div>
                         <div class="skill-item">
                             <img src="img/Veil of Shadow.webp" alt="Veil of Shadow" class="skill-img">
                             <span class="skill-name">Veil of Shadow</span>
+                            <div class="skill-tags"><span class="skill-tag">Agro</span><span class="skill-tag">Debuff</span></div>
                             <span class="skill-cd">CD: 30s</span>
                             <span class="skill-desc">Oculta la presencia del lanzador para evitar el Agro y limpia debuffs durante 10s.</span>
                         </div>
@@ -1142,24 +1169,28 @@
                         <div class="skill-item">
                             <img src="img/Overclock Shock.webp" alt="Overclock Shock" class="skill-img">
                             <span class="skill-name">Overclock Shock</span>
+                            <div class="skill-tags"><span class="skill-tag">Interrupción</span><span class="skill-tag">Silencio</span></div>
                             <span class="skill-cd">CD: 45s</span>
                             <span class="skill-desc">Interrumpe objetivos en un radio de 5m y los silencia durante 5s.</span>
                         </div>
                         <div class="skill-item">
                             <img src="img/Renewal Prayer.webp" alt="Renewal Prayer" class="skill-img">
                             <span class="skill-name">Renewal Prayer</span>
+                            <div class="skill-tags"><span class="skill-tag">Buff</span></div>
                             <span class="skill-cd">CD: 90s</span>
                             <span class="skill-desc">Revive al aliado más cercano en un radio de 3m.</span>
                         </div>
                         <div class="skill-item">
                             <img src="img/Life Barrier.webp" alt="Life Barrier" class="skill-img">
                             <span class="skill-name">Life Barrier</span>
+                            <div class="skill-tags"><span class="skill-tag">Buff</span><span class="skill-tag">Protección</span></div>
                             <span class="skill-cd">CD: 80s</span>
                             <span class="skill-desc">Otorga a 10 aliados un escudo del 20% HP Máx y 15% Resistencia durante 10s.</span>
                         </div>
                         <div class="skill-item">
                             <img src="img/Silent Command.webp" alt="Silent Command" class="skill-img">
                             <span class="skill-name">Silent Command</span>
+                            <div class="skill-tags"><span class="skill-tag">Debuff</span></div>
                             <span class="skill-cd">CD: 30s</span>
                             <span class="skill-desc">Disipa debuffs de hasta 10 aliados en un radio de 25m.</span>
                         </div>
