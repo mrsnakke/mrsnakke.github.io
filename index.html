@@ -761,6 +761,101 @@
             display: block;
         }
 
+        /* Class Notes Styles (Accordion) */
+        .class-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .class-card:hover {
+            border-color: rgba(0, 242, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .class-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.3s ease;
+        }
+
+        .class-header:hover {
+            background: rgba(0, 242, 255, 0.05);
+        }
+
+        .class-header h3 {
+            margin: 0;
+            border-left: 3px solid var(--neon-blue);
+            padding-left: 12px;
+            pointer-events: none;
+        }
+
+        .accordion-icon {
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .class-card.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .class-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+            padding: 0 20px;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .class-card.active .class-content {
+            max-height: 2000px; /* Suficientemente grande para el contenido */
+            padding-bottom: 20px;
+            border-top: 1px solid rgba(0, 242, 255, 0.1);
+        }
+
+        .full-notes {
+            margin-top: 10px;
+        }
+
+        .note-category {
+            color: var(--neon-gold);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            margin: 15px 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-item {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            padding-left: 15px;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .note-tag {
+            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 5px;
+            text-transform: uppercase;
+        }
+
+        .tag-buff { background: rgba(30, 255, 0, 0.15); color: var(--success); }
+        .tag-nerf { background: rgba(255, 77, 77, 0.15); color: var(--danger); }
+        .tag-adj { background: rgba(255, 204, 0, 0.15); color: var(--warning); }
+        .tag-fix { background: rgba(0, 242, 255, 0.15); color: var(--neon-blue); }
+
         .stat-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -1051,78 +1146,200 @@
             <h2 style="margin-top: 40px; text-shadow: 0 0 10px var(--neon-blue); border-bottom-color: rgba(0, 242, 255, 0.4);"><img src="img/Artisanry.webp" alt="">Cambios por Clase (Buff / Nerf)</h2>
 
             <!-- Heavy Guardian -->
-
-            <div style="margin-bottom: 30px;">
-                <h3 id="heavy-guardian">Heavy Guardian <span class="status-badge status-mega-buff">SUPER BUFF</span></h3>
-                <ul>
-                    <li><strong>Block Spec:</strong> Daño de <span class="key-term">[Granite]</span> sube de 30% a <span class="change-highlight">70%</span>. <span class="key-term">[Stone Fist]</span> sube a <span class="change-highlight">800%</span>.</li>
-                    <li><strong>Supervivencia:</strong> <span class="key-term">[Brave Bastion]</span> gana +1 carga. Maestría otorga +2,500 (antes 1,200).</li>
-                    <li><strong>Earthfort Spec:</strong> El talento <em>Resonant Domain</em> absorbe el 50% del daño directamente, evitando one-shots al grupo.</li>
-                </ul>
+            <div class="class-card" onclick="toggleAccordion(this)">
+                <div class="class-header">
+                    <h3 id="heavy-guardian">Heavy Guardian <span class="status-badge status-mega-buff">SUPER BUFF</span></h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="class-content">
+                    <div class="full-notes">
+                        <div class="note-category">🛡️ General / All Specs</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Reducción de post-cast delays para combos más fluidos.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Resonant Domain]: 50% del daño absorbido directamente por el campo, sin transferirse al tanque.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Aumento en la tasa de generación de Aggro para el Rol de Supervivencia.</div>
+                        
+                        <div class="note-category">⛰️ Earthfort Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Earthfort Spec]: Al ser atacado, +0.6% All-Element Res (stack 10). +2% efecto por cada 1% Mastery.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Rock Master]: Otorga 10% de Rock Bonus por 10s al activarse.</div>
+                        
+                        <div class="note-category">🧱 Block Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Rock Heart]: Al activar Heart of Rock, otorga 10% de Rock Bonus por 10s.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Granite]: Multiplicador 30% → 70%.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Stone Fist]: Multiplicador 650% → 800%.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Brave Bastion]: Contador de cargas +1.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Rock Mastery]: Mastery plana +1,200 → +2,500.</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Shield Knight -->
-            <div style="margin-bottom: 30px;">
-                <h3 id="shield-knight">Shield Knight <span class="status-badge status-buff">BUFF</span></h3>
-                <ul>
-                    <li><strong>Escudos:</strong> <span class="key-term">Holy Barrier</span> ahora escala con <span class="change-highlight">3000% de Defensa</span>.</li>
-                    <li><strong>Recovery Spec:</strong> Daño crítico inicial de <em>Inferno Reckon</em> sube al <span class="change-highlight">250%</span>.</li>
-                    <li><strong>Shield Spec:</strong> Reducción de daño físico de hasta 9% basado en enemigos cercanos.</li>
-                </ul>
+            <div class="class-card" onclick="toggleAccordion(this)">
+                <div class="class-header">
+                    <h3 id="shield-knight">Shield Knight <span class="status-badge status-buff">BUFF</span></h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="class-content">
+                    <div class="full-notes">
+                        <div class="note-category">⚔️ General / All Specs</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Holy Barrier]: Escudo absorbe 150% Max HP + 3,000% Defense (Gran mejora late game).</div>
+                        <div class="note-item"><span class="note-tag tag-fix">Fix</span> Optimización del Auto-Battle.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Aumento en la tasa de generación de Aggro.</div>
+
+                        <div class="note-category">🚑 Recovery Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Shield Guard]: Valor Bash restaura HP (120% ATK) y +8% DMG por 8s.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Inferno Reckon]: Crit DMG inicial 150% → 250%.</div>
+                        <div class="note-item"><span class="note-tag tag-fix">Fix</span> Arreglado que Inferno Reckon no activaba Lucky Strike.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Shield Toss]: Cada Tier otorga +1% Damage Resistance.</div>
+
+                        <div class="note-category">🛡️ Shield Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Divine Guard]: +1.5% Reducción ATK por enemigo (máx 9%).</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Judgment Improvement]: +8% Resistance con 5+ stacks de Lightforged Barrier.</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Wind Knight -->
-            <div style="margin-bottom: 30px;">
-                <h3 id="wind-knight">Wind Knight <span class="status-badge status-mega-buff">MEGA BUFF</span></h3>
-                <ul>
-                    <li><strong>Vanguard Spec:</strong> Nuevo talento donde el <span class="key-term">Haste aumenta el Daño Crítico</span>. Sinergia total con el buff de Agilidad.</li>
-                    <li><strong>Multiplicadores:</strong> <span class="key-term">[Wind Spiral]</span> 100% ➔ <span class="change-highlight">200%</span>. <span class="key-term">[Vortex Strike]</span> sube a <span class="change-highlight">1,265%</span>.</li>
-                    <li><strong>Skyward Spec:</strong> <em>Tornado</em> ya no pierde daño. Mayor consistencia en procs de <em>Instant Edge</em>.</li>
-                </ul>
+            <div class="class-card" onclick="toggleAccordion(this)">
+                <div class="class-header">
+                    <h3 id="wind-knight">Wind Knight <span class="status-badge status-mega-buff">MEGA BUFF</span></h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="class-content">
+                    <div class="full-notes">
+                        <div class="note-category">🌪️ General / All Specs</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Segunda fase de [Typhoon Cleave] usable en el aire.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Momentum Surge]: Rango 5m → 12m.</div>
+
+                        <div class="note-category">☁️ Skyward Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Tornado]: Eliminada la penalización de daño por tiempo.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Instant Edge Combo]: +25% chance base o usa tu Lucky Strike.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Air Dance Strike]: Sharp Impact otorga 3/6 Sharp.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Rango de hit aumentado para Sharp Impact y Instant Edge.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Chasing Step se activa con Crits de Skyfall o Falcon Toss.</div>
+
+                        <div class="note-category">🤺 Vanguard Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Drake Cannon]: Multiplicador 345% → 380%.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Vortex Strike]: Multiplicador 1,150% → 1,265%.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Dragon's Fury Flame]: +0.5% Crit DMG por cada 1% Haste.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Wind Spiral]: Multiplicador 100% → 200%.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Mastery: 1% otorga 0.72% Wind Bonus (antes 0.65%).</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Stormblade -->
-            <div style="margin-bottom: 30px;">
-                <h3 id="stormblade">Stormblade <span class="status-badge status-roto">¿ROTO?</span></h3>
-                <ul>
-                    <li><strong>Iaido Spec:</strong> El talento <em>End of Annihilation</em> sube su daño de 1,000% a <span class="change-highlight" style="font-size: 1.2rem;">15,000%</span>. (Nadie usaba End of Annihilation 🤷‍♂️).</li>
-                    <li><strong>Moonstrike Spec:</strong> <span class="change-nerf">Nerf de Maestría</span> (1.5 ➔ 1.2). Ahora depende mucho más del stat <span class="key-term">Luck</span>.</li>
-                </ul>
+            <div class="class-card" onclick="toggleAccordion(this)">
+                <div class="class-header">
+                    <h3 id="stormblade">Stormblade <span class="status-badge status-roto">¿ROTO?</span></h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="class-content">
+                    <div class="full-notes">
+                        <div class="note-category">⚡ Iaido Slash Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Flash Frenzy Blade]: Reseteo de CD ya no requiere Crits.</div>
+                        <div class="note-item"><span class="note-tag tag-adj">Adj</span> Talent [Iaido Mastery]: Mejor escalado sobre 60% Crit Chance.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [End of Annihilation]: Daño máximo 1,000% → 15,000%. 150% dmg por Sigil.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Mastery: 1% Mastery → 2.8% DMG skills con Sigils (antes 2.5%).</div>
+                        <div class="note-item"><span class="note-tag tag-nerf">Nerf</span> Talent [Thunder Sigil Rewind]: Bono daño skills no derivadas 25% → 20%.</div>
+
+                        <div class="note-category">🌙 Moonstrike Spec</div>
+                        <div class="note-item"><span class="note-tag tag-adj">Adj</span> Talent [Phantom Scythe Realm II]: Generación de Blade Intent escala con Luck.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Divine Sickle]: +100% o +200% Daño Final basado en Luck (28%/45%).</div>
+                        <div class="note-item"><span class="note-tag tag-nerf">Nerf</span> Mastery: 1% Mastery → 1.2% DMG (antes 1.5%).</div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Falconry -->
-            <div style="margin-bottom: 30px;">
-                <h3 id="falconry">Falconry (Arquero) <span class="status-badge status-buff">BUFF DAÑO</span></h3>
-                <ul>
-                    <li><strong>Falconry Spec:</strong> <span class="key-term">[Radiance Barrage]</span> sube de 800% a <span class="change-highlight">1,200%</span>. Mayor penetración de armadura.</li>
-                    <li><strong>Wildpack Spec:</strong> Buff masivo al escalado de sangrado (Maestría da <span class="change-highlight">3% de daño</span> por punto, antes era 0.5%).</li>
-                </ul>
+            <!-- Marksman -->
+            <div class="class-card" onclick="toggleAccordion(this)">
+                <div class="class-header">
+                    <h3 id="marksman">Marksman <span class="status-badge status-buff">BUFF DAÑO</span></h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="class-content">
+                    <div class="full-notes">
+                        <div class="note-category">🦅 Falconry Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Halcón tiene 23% chance fijo de golpear si tú no haces Crítico.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Falcon Break]: Halcón ignora 20-40% Armor.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Powerdraw]: Multiplicador 500% → 750%.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Radiance Barrage]: Multiplicador 800% → 1,200%.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Implosion]: Multiplicador 60% → 100%.</div>
+
+                        <div class="note-category">🐺 Wildpack Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Mastery of Bleed]: 1% Mastery → 3% Bleed dmg (x6 de escalado!).</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Direwolf's Hunger]: Exceso de Haste (+35%) otorga ATK plano.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Reducción de CD para [Wild Call] mejora con Haste.</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Frost Mage -->
-            <div style="margin-bottom: 30px;">
-                <h3 id="frost-mage">Frost Mage <span class="status-badge status-rework">REWORK / BUFF</span></h3>
-                <ul>
-                    <li><strong>Frostbeam Spec:</strong> <em>Crystal Resonance</em> duplica el daño de Ice Arrow. Daño de <em>Cold Pulse</em> aumenta un 20% por enemigo golpeado (hasta 500% AoE).</li>
-                </ul>
+            <div class="class-card" onclick="toggleAccordion(this)">
+                <div class="class-header">
+                    <h3 id="frost-mage">Frost Mage <span class="status-badge status-rework">REWORK / BUFF</span></h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="class-content">
+                    <div class="full-notes">
+                        <div class="note-category">❄️ General / All Specs</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Conversión Endurance a HP: 6 → 6.5.</div>
+                        <div class="note-item"><span class="note-tag tag-adj">Adj</span> Auto-Combo optimizado para mantener distancia.</div>
+
+                        <div class="note-category">🧊 Icicle Spec</div>
+                        <div class="note-item"><span class="note-tag tag-adj">Adj</span> Talent [Frost Comet]: 21% chance fijo al consumir cristales.</div>
+
+                        <div class="note-category">🔦 Frostbeam Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Recuperación de Ice Energy al pegar (doble en Permafrost).</div>
+                        <div class="note-item"><span class="note-tag tag-nerf">Nerf</span> Cold Wind Convergence: Reducción coste maná 5% (8s) → 3% (15s).</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Regeneración total de energía 25% → 30% (en 10s).</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Cold Pulse]: Daño escala hasta 500% en AoE.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Crystal Resonance]: Daño final de Ice Arrow se duplica.</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Verdant Oracle -->
-            <div style="margin-bottom: 30px;">
-                <h3 id="verdant-oracle">Verdant Oracle <span class="status-badge status-hybrid">DPS HÍBRIDO</span></h3>
-                <ul>
-                    <li><strong>Smite Spec:</strong> Buffs porcentuales gigantes. <span class="key-term">[Bloomheal]</span> sube de 600% a <span class="change-highlight">1,800% de daño</span> (Triple).</li>
-                    <li><strong>Lifebind Spec:</strong> Curaciones ahora escalan con el <span class="key-term">% de HP Máxima</span> del objetivo.</li>
-                </ul>
+            <div class="class-card" onclick="toggleAccordion(this)">
+                <div class="class-header">
+                    <h3 id="verdant-oracle">Verdant Oracle <span class="status-badge status-hybrid">DPS HÍBRIDO</span></h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="class-content">
+                    <div class="full-notes">
+                        <div class="note-category">🌿 General / All Specs</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Inspiration]: +1.5% extra a todos los stats secundarios.</div>
+
+                        <div class="note-category">⚔️ Smite Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Reducción CD de Infusion al hacer daño o Lucky Strikes.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Exceso de curación (+30% HP) se vuelve regeneración.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Stag Charge]: Multiplicador 200% → 500%. Doble daño a Thorned.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Bloomheal]: Multiplicador 600% → 1,800% (Daño triplicado).</div>
+
+                        <div class="note-category">❤️ Lifebind Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Grove Wish]: Restaura 15% Max HP total.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Lifeforce Extension]: Healing Chain cura 1% Max HP por rebote.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Ultimate Inspiration]: Duplica los bonos de Inspiration (+3% total).</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Beat Performer -->
-            <div style="margin-bottom: 10px;">
-                <h3 id="beat-performer">Beat Performer <span class="status-badge status-nerf">NERF DAÑO / BUFF HEAL</span></h3>
-                <ul>
-                    <li><strong>Nerf:</strong> <em>Encore Chain</em> reduce el multiplicador de Lucky Strike en <span class="change-nerf">-20%</span>.</li>
-                    <li><strong>Concerto:</strong> Curación de <em>Concert Circuit</em> sube al <span class="change-highlight">1,000%</span>. <em>Sonic Verdict</em> reduce daño recibido un 15%.</li>
-                </ul>
+            <div class="class-card" onclick="toggleAccordion(this)">
+                <div class="class-header">
+                    <h3 id="beat-performer">Beat Performer <span class="status-badge status-nerf">NERF DAÑO / BUFF HEAL</span></h3>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="class-content">
+                    <div class="full-notes">
+                        <div class="note-category">🎸 General / All Specs</div>
+                        <div class="note-item"><span class="note-tag tag-nerf">Nerf</span> Talent [Encore Chain]: Multiplicador de Lucky Strike -20%.</div>
+
+                        <div class="note-category">🎵 Concerto Spec</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Healing Beat]: Cura 3% del Max HP del objetivo.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Skill [Concert Circuit]: Multiplicador curación 500% → 1,000%.</div>
+                        <div class="note-item"><span class="note-tag tag-buff">Buff</span> Talent [Sonic Verdict]: Reducción daño recibido 15% con Healing Melody.</div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1647,6 +1864,11 @@
                 document.body.classList.remove('extended-mode');
             }
         }
+
+        function toggleAccordion(card) {
+            card.classList.toggle('active');
+        }
+
 
     </script>
 
